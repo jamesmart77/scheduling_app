@@ -14,10 +14,10 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": "scheduling",
-    "database": "schedulingDb",
-    "host": "127.0.0.1",
+    "username": "jhrkscrxlvowcg",
+    "password": "98b14dec55e9d93880f8762736dc5e4906c0060f1b80857a142850d02370a253",
+    "database": "d586mt89t05gdm",
+    "host": "ec2-54-225-97-112.compute-1.amazonaws.com",
     "dialect": "postgres"
   }
 }
