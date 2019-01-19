@@ -8,9 +8,9 @@
   integrity sha512-Xqg/lIZMrUd0VRmSRbCAewtwGZiAk3mEUDvV4op1tGl+LvyPcb/MIOSxTl9z+9+J+R4/vpjiCAT4xeKzH9ji1w==
 
 "@types/node@*", "@types/node@^10.11.7":
-  version "10.11.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.11.7.tgz#0e75ca9357d646ca754016ca1d68a127ad7e7300"
-  integrity sha512-yOxFfkN9xUFLyvWaeYj90mlqTJ41CsQzWKS3gXdOMOyPVacUsymejKxJ4/pMW7exouubuEeZLJawGgcNGYlTeg==
+  version "10.12.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.0.tgz#ea6dcbddbc5b584c83f06c60e82736d8fbb0c235"
+  integrity sha512-3TUHC3jsBAB7qVRGxT6lWyYo2v96BMmD2PTcl47H25Lu7UXtFH/2qqmKiVrnel6Ne//0TFYf6uvNX+HW2FRkLQ==
 
 "@types/semver@^5.5.0":
   version "5.5.0"
@@ -281,9 +281,9 @@ dottie@^2.0.0:
   integrity sha1-2hkZgci41xPKARXViYzzl8Lw3dA=
 
 editorconfig@^0.15.0:
-  version "0.15.1"
-  resolved "https://registry.yarnpkg.com/editorconfig/-/editorconfig-0.15.1.tgz#aafad4a109f7de55952016edb59280dd1bfdec2d"
-  integrity sha512-3fGD2GMwmR+QSCyc/sUp9wc7yZFrYODLBN9zQMzuSm21/AO13Vf42CaCOwNkZ8oYM+hixAttt43xhaP6bjh5YQ==
+  version "0.15.2"
+  resolved "https://registry.yarnpkg.com/editorconfig/-/editorconfig-0.15.2.tgz#047be983abb9ab3c2eefe5199cb2b7c5689f0702"
+  integrity sha512-GWjSI19PVJAM9IZRGOS+YKI8LN+/sjkSjNyvxL5ucqP9/IqtYNXBaQ/6c/hkPNYQHyOHra2KoXZI/JVpuqwmcQ==
   dependencies:
     "@types/node" "^10.11.7"
     "@types/semver" "^5.5.0"
@@ -578,9 +578,9 @@ isexe@^2.0.0:
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
 js-beautify@^1.7.4:
-  version "1.8.7"
-  resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.8.7.tgz#d87100f714aeb3c388bce9ef011442fc07bda93a"
-  integrity sha512-yhAMCTv0L9GNg6Gql7i+g4C1z9rQhfHXy4J0TGYFoBzzHR4reWYS573gkRrPuE58dYOH451LmBeAb8L1pLEfdA==
+  version "1.8.8"
+  resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.8.8.tgz#1eb175b73a3571a5f1ed8d98e7cf2b05bfa98471"
+  integrity sha512-qVNq7ZZ7ZbLdzorvSlRDadS0Rh5oyItaE95v6I4wbbuSiijxn7SnnsV6dvKlcXuO2jX7lK8tn9fBulx34K/Ejg==
   dependencies:
     config-chain "~1.1.5"
     editorconfig "^0.15.0"
@@ -1114,10 +1114,10 @@ send@0.16.2:
     range-parser "~1.2.0"
     statuses "~1.4.0"
 
-sequelize-cli@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-5.0.1.tgz#d133f0d975a955bb7995a637c098ea1520e2818b"
-  integrity sha512-wlk7/W1uvJ/rlWlxgfufSZiqhb2mk/8k7PzJOOSFRwoJMYm9d6stbrVHNwKXRjii1cwo1UnWwQH4kez81cPciw==
+sequelize-cli@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-5.2.0.tgz#fd3a8e81986b4bbae949cf187cb80ac38544e5e2"
+  integrity sha512-tYfYoAEt2hVms4xYTstLWIuXRKJmQnNDVEw1DejK37LfcpnD8eYldNDBKYrZnwGoekd1jv9dAxATEo+JSe+6ow==
   dependencies:
     bluebird "^3.5.1"
     cli-color "^1.2.0"
@@ -1128,10 +1128,10 @@ sequelize-cli@^5.0.1:
     umzug "^2.1.0"
     yargs "^12.0.2"
 
-sequelize@^4.39.0:
-  version "4.39.0"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.39.0.tgz#0e070a4705367e4b0779183f812c72f478ff12b9"
-  integrity sha512-Rra0b81fzNqGLFJEDCsLxWGCDkmscjSsWV25nTrhd4LAk2qWh4I6Qj1iP+2K58ovRmt0QMkt5LNUEpPHZU6njQ==
+sequelize@^4.41.0:
+  version "4.41.0"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.41.0.tgz#fa24ac0471e398090b55b302579240ed58e0b54a"
+  integrity sha512-6zCYxjPriUBgLQ5dN4ZxC5eadUtRu2tHFoBiSU9vNGb6G3f4bZM6vFpJu0DhxeeyhodTAXqY1GaBpZzT3PXB/Q==
   dependencies:
     bluebird "^3.5.0"
     cls-bluebird "^2.1.0"
