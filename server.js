@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // API calls
 app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+  res.send({ express: 'This will be the fanstical scheduling app in the coming weeks!!' });
 });
 
 if (process.env.NODE_ENV === 'production') {
