@@ -1,4 +1,4 @@
-# [Booking Assistant](https://befree-scheduler.herokuapp.com/)
+# [Scheduling Assistant](https://befree-scheduler.herokuapp.com/)
 
 ## Description
 To help solve the annoyance of needing to create a schedule manually every few months, why not build an app??
@@ -21,3 +21,6 @@ Specific pain points include:
 ## Database Schema
 Schema diagram can be found at repo root level as png file
 
+
+## Other Notes
+Shout out to jmuturi for posting a tutorial on wiring up Node, Postgres, and Express with a Sequelize ORM. [Checkout the tutorial](https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize).
