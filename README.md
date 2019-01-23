@@ -19,7 +19,7 @@ Specific pain points include:
 
 
 ## Database Schema
-Schema diagram can be found at repo root level as png file
+Schema diagram can be found at repo root level as png file or [click here](https://github.com/jamesmart77/scheduling_app/blob/master/Scheduling_app.png)
 
 
 ## Other Notes
