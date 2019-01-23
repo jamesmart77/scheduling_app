@@ -1,10 +1,17 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Service = sequelize.define('Service', {
-    title: DataTypes.STRING
+    title: {
+      allowNull: false,
+      type: DataTypes.STRING
+    }
   }, {});
-  Service.associate = function(models) {
-    // associations can be defined here
+
+  Service.associate = (models) => {
+    Service.hasMany(models.Schedule, {
+      foreignKey: 'serviceId'
+    });
   };
+
   return Service;
 };

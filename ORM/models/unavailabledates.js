@@ -1,10 +1,18 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const UnavailableDates = sequelize.define('UnavailableDates', {
-    date: DataTypes.DATEONLY
+    date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
+    }
   }, {});
-  UnavailableDates.associate = function(models) {
-    // associations can be defined here
+
+  UnavailableDates.associate = (models) => {
+    UnavailableDates.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
   };
+  
   return UnavailableDates;
 };
