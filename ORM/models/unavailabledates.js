@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
   UnavailableDates.associate = (models) => {
     UnavailableDates.belongsTo(models.User, {
       foreignKey: 'userId',
-      onDelete: 'CASCADE',
+      onDelete: 'CASCADE'
     });
   };
   
   return UnavailableDates;
-};
+}; 

@@ -40,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
   // many-to-many with join included
   User.associate = (models) => {
     User.belongsToMany(models.Group, {
-      through: 'GroupUsers',
-      as: 'groups',
+      through: 'users_groups',
+      as: 'userGroups',
       foreignKey: 'userId'
     });
   };
@@ -49,8 +49,8 @@ module.exports = (sequelize, DataTypes) => {
   // many-to-many with join included
   User.associate = (models) => {
     User.belongsToMany(models.Service, {
-      through: 'UserServices',
-      as: 'services',
+      through: 'users_services',
+      as: 'userServices',
       foreignKey: 'userId'
     });
   };
@@ -59,6 +59,13 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.UnavailableDates, {
       foreignKey: 'userId',
       as: 'unavailableDates',
+    }); 
+  };
+
+  User.associate = (models) => {
+    User.hasMany(models.Group, {
+      foreignKey: 'userId',
+      as: 'ownedGroups',
     });
   };
 
