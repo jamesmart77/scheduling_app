@@ -3,6 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('./ORM/models');
+const routes = require("./routes");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,18 +15,17 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// API calls
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'This will be the fanstical scheduling app in the coming weeks!!' });
-});
+// Serve up static assets
+app.use(express.static("client/build"));
+
+// Add routes, both API and view
+app.use(routes);
 
 if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
-  app.use(express.static(path.join(__dirname, 'client/build')));
   // Handle React routing, return all requests to React app
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  // });
   
   db.sequelize.sync().then(() => {
     app.listen(port, () => {
