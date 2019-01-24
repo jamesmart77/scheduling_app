@@ -23,4 +23,5 @@ Schema diagram can be found at repo root level as png file or [click here](https
 
 
 ## Other Notes
-Shout out to jmuturi for posting a tutorial on wiring up Node, Postgres, and Express with a Sequelize ORM. [Checkout the tutorial](https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize). For any questions referring to the setup of Sequelize, refer to the article.
+- Shout out to jmuturi for posting a tutorial on wiring up Node, Postgres, and Express with a Sequelize ORM. [Checkout the tutorial](https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize). For any questions referring to the setup of Sequelize, refer to the article.
+- [Trello board](https://trello.com/b/g8gfhwPm/scheduler)
