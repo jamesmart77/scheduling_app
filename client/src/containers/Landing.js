@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Nav from '../components/Nav';
 
 export class Landing extends Component {
     constructor(props) {
@@ -10,7 +11,8 @@ export class Landing extends Component {
     render() {
         return (
             <div className='landing-container'>
-                <h5>Welcome to the landing container!!</h5>
+                <Nav/>
+                <h5>Welcome to the landing page!</h5>
             </div>
         )
     }
