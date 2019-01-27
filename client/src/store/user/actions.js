@@ -1,10 +1,11 @@
 import * as types from './actionTypes';
-import api from '../../api/service';
+import * as api from '../../api/service';
 
-export function loginCurrentUser() {
+export function loginCurrentUser(email, password) {
     return async(dispatch) => {
         try {
-            const currentUser = api.loginCurrentUser();
+            console.log("made it to the action")
+            const currentUser = api.loginCurrentUser(email, password);
             dispatch({ type: types.CURRENT_USER_LOGIN, currentUser});
         } catch (error) {
             console.error("Error logging in current user: ", error);
