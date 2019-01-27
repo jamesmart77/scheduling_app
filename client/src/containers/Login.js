@@ -6,7 +6,7 @@ import { Input, Row, Container, Button } from 'react-materialize';
 import LoadingSpinner from '../components/LoadingSpinner';
 import * as userActions from '../store/user/actions';
 import * as responseHandlerActions from '../store/responseHandler/actions';
-import SweetAlert from 'sweetalert-react';
+import SweetAlert from 'sweetalert2-react';
 
 export class Login extends Component {
     constructor(props) {
@@ -88,7 +88,9 @@ export class Login extends Component {
                                 />
                             </Row>
                             <Row s={9}>
-                                <Button className="right" onClick={() => this.handleLogin()}>Login</Button>
+                                <Button s={9} onClick={() => this.handleLogin()}>Login</Button>
+                                <hr/>
+                                <Button s={9}>Create New Account</Button>
                             </Row>
                         </div>
                     }
