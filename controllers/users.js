@@ -28,19 +28,17 @@ module.exports = {
 
         if(bcrypt.compareSync(req.body.password, retrievedUser.password) ||
             retrievedUser === null){
-            
-           const user = {
-               email: retrievedUser.email,
-               firstName: retrievedUser.firstName,
-               lastName: retrievedUser.lastName,
-               isAdmin: retrievedUser.isAdmin
-           };
 
-            const token = await tokenValidation.sign(user);
+            const token = await tokenValidation.sign();
 
             //store the JWT in the client's browser
             res.cookie('schedAroo_jwt', token);
-            res.status(200).send({user});            
+            res.status(200).send({
+                email: retrievedUser.email,
+                firstName: retrievedUser.firstName,
+                lastName: retrievedUser.lastName,
+                isAdmin: retrievedUser.isAdmin
+            });            
         }
         else{
             res.status(401).send({
