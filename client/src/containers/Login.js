@@ -1,30 +1,44 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Input, Row, Container, Button } from 'react-materialize';
 import LoadingSpinner from '../components/LoadingSpinner';
-import * as actions from '../store/user/actions';
-import { Redirect } from 'react-router-dom'
+import * as userActions from '../store/user/actions';
+import * as responseHandlerActions from '../store/responseHandler/actions';
+import SweetAlert from 'sweetalert-react';
 
 export class Login extends Component {
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.state = {
             email: '',
             password: '',
-            isLogginIn: false
+            isLoggingIn: false
+        }
+    }
+
+    componentDidMount(){
+        this.isUserLoggedIn();
+    }
+
+    componentDidUpdate(){
+        this.isUserLoggedIn();
+    }
+
+    isUserLoggedIn(){
+        if (this.props.currentUser.email !== '' && !this.props.loginUnauthorized) {
+            this.props.history.push('/users');
         }
     }
 
     async handleLogin(){
-        this.setState({ isLogginIn: true });
-        await actions.loginCurrentUser(this.state.email, this. state.password);
-
-        if (this.props.currentUser.email !== '') {
-            return <Redirect to='/user' />
-        }
+        this.setState({ isLoggingIn: true });
+        await this.props.userActions.loginCurrentUser(this.state.email, this. state.password);
+        this.setState({ isLoggingIn: false });
     }
 
     handleChange(event) {
@@ -35,11 +49,24 @@ export class Login extends Component {
         });
     };
 
+    handleReset(){
+        this.props.responseHandlerActions.reset();
+    }
+
     render() {
+        const { loginUnauthorized } = this.props;
+        
         return (
             <div className='login-container'>
                 <Container>
-                    {this.state.isLogginIn ?
+                    <SweetAlert 
+                        show={loginUnauthorized}
+                        type='error'
+                        title='Login Attempt Failed'
+                        text='The provided email and/or password were incorrect. Please try again.'
+                        onConfirm={() => this.handleReset()}
+                    />
+                    {this.state.isLoggingIn ?
                         <LoadingSpinner/>
                     :
                         <div>
@@ -51,8 +78,6 @@ export class Login extends Component {
                                     name="email"
                                     value={this.state.email}
                                     onChange={this.handleChange}
-                                    validate={true}
-                                    error="Please enter valid email address"
                                 />
                                 <Input s={12}
                                     type="password" 
@@ -75,12 +100,21 @@ export class Login extends Component {
 
 function mapStateToProps(state) {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        loginUnauthorized: state.loginUnauthorized
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        userActions: bindActionCreators(userActions, dispatch),
+        responseHandlerActions: bindActionCreators(responseHandlerActions, dispatch),
     }
 }
 
 Login.propTypes = {
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    loginUnauthorized: PropTypes.bool,
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

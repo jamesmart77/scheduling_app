@@ -24,13 +24,14 @@ const DELETE_Config = {
     body: ''
 };
 
-export const loginCurrentUser = async() => {
-    const response = await fetch('/api/user/login', {...GET_Config});
+export const loginCurrentUser = async(credentials) => {
+    POST_Config.body = JSON.stringify(credentials);
+    const response = await fetch('/api/users/login', POST_Config);
     return responseHandler(response, 'loginCurrentUser');
 };
 
 const responseHandler = async(response, funcName) => {
-    if(!response.OK) {
+    if(!response.ok) {
         throw new Error(`API Service ${funcName} failed, HTTP status ${response.status}`);
     }
 
