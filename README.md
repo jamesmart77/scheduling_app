@@ -22,6 +22,12 @@ Specific pain points include:
 Schema diagram can be found at repo root level as png file or [click here](https://github.com/jamesmart77/scheduling_app/blob/master/Scheduling_app.png)
 
 
+## Initial Setup
+ - Add a `.env` file with the tokenSecret value of your choosing. This is needed for the signing of the JWT
+ - Run `createdb scheduler-dev` in the terminal. You must have Postgres installed to perform this. This will create the local database
+ - Run `sequelize db:migrate` in the terminal before launching the application. This will perform all the migrations to setup the database
+ - `Yarn dev` to launch the app locally
+
 ## Other Notes
 - Shout out to jmuturi for posting a tutorial on wiring up Node, Postgres, and Express with a Sequelize ORM. [Checkout the tutorial](https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize). For any questions referring to the setup of Sequelize, refer to the article.
 - [Trello board](https://trello.com/b/g8gfhwPm/scheduler)

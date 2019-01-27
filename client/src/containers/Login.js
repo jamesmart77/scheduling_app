@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Input, Row, Container, Button } from 'react-materialize';
 import LoadingSpinner from '../components/LoadingSpinner';
-import * as actions from '../store/user/actions';
-import { Redirect } from 'react-router-dom'
+import * as userActions from '../store/user/actions';
 
 export class Login extends Component {
     constructor(props) {
@@ -14,17 +14,27 @@ export class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            isLogginIn: false
+            isLoggedIn: false
+        }
+    }
+
+    componentDidMount(){
+        this.isUserLoggedIn();
+    }
+
+    componentDidUpdate(){
+        this.isUserLoggedIn();
+    }
+
+    isUserLoggedIn(){
+        if (this.props.currentUser.email !== '') {
+            this.props.history.push('/users');
         }
     }
 
     async handleLogin(){
         this.setState({ isLogginIn: true });
-        await actions.loginCurrentUser(this.state.email, this. state.password);
-
-        if (this.props.currentUser.email !== '') {
-            return <Redirect to='/user' />
-        }
+        await this.props.userActions.loginCurrentUser(this.state.email, this. state.password);
     }
 
     handleChange(event) {
@@ -39,7 +49,7 @@ export class Login extends Component {
         return (
             <div className='login-container'>
                 <Container>
-                    {this.state.isLogginIn ?
+                    {this.state.isLoggedIn ?
                         <LoadingSpinner/>
                     :
                         <div>
@@ -79,8 +89,14 @@ function mapStateToProps(state) {
     }
 }
 
+function mapDispatchToProps(dispatch){
+    return {
+        userActions: bindActionCreators(userActions, dispatch)
+    }
+}
+
 Login.propTypes = {
     currentUser: PropTypes.object
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

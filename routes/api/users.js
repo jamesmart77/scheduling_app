@@ -5,6 +5,8 @@ router.get('/', (req, res) => res.status(200).send({
     message: 'Welcome to the Users API!',
 }));
 
+router.post('/login', usersController.findOne);
+
 router.post('/', usersController.create);
 
 module.exports = router;
