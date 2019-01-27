@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Landing from './Landing'
 import Login from './Login'
 import { Row } from 'react-materialize';
+import Nav from '../components/Nav';
+import User from './User';
 
 export class App extends Component {
 
@@ -19,11 +21,12 @@ export class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          {/* Add Top Nav Here */}
           <Row className='app-container'>
+            <Nav/>
             <Switch>
               <Route exact path='/' component={Landing}/>
               <Route path='/login' component={Login}/>
+              <Route path='/user' component={User}/>
             </Switch>
           </Row>
         </div>

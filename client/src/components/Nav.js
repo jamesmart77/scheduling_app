@@ -1,7 +1,9 @@
-import React from "react";
-import { Row, Col, Navbar, NavItem} from 'react-materialize';
+import React, { Component } from "react";
+import { Navbar, NavItem} from 'react-materialize';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export class Nav extends React.Component {
+export class Nav extends Component {
 
     constructor(props){
         super(props);
@@ -9,13 +11,28 @@ export class Nav extends React.Component {
     }
 
     render(){
+        const { currentUser } = this.props;
+
         return(
             <Navbar brand='Sched-Aroo' right>
-                <NavItem href='/login'>Login</NavItem>
+                {currentUser.email === '' ? (
+                    <NavItem href='/login'>Login</NavItem>
+                ) : (
+                    <NavItem href='/'>Logout</NavItem>
+                )}
             </Navbar>
         )
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        currentUser: state.currentUser
+    }
+}
 
-export default Nav;
+Nav.propTypes = {
+    currentUser: PropTypes.object
+};
+
+export default connect(mapStateToProps)(Nav);

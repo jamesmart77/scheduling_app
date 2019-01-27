@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export class Landing extends Component {
+export class Home extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         return (
-            <div className='landing-container'>
-                <h5>Welcome to the landing page!</h5>
+            <div className='user-container'>
+                <h3>Welcome to the User Home page!</h3>
             </div>
         )
     }
@@ -22,8 +22,8 @@ function mapStateToProps(state) {
     }
 }
 
-Landing.propTypes = {
+Home.propTypes = {
     currentUser: PropTypes.object
 };
 
-export default connect(mapStateToProps)(Landing);
+export default connect(mapStateToProps)(Home);

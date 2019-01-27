@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { css } from '@emotion/core';
-import { ClimbingBoxLoader } from 'react-spinners';
+import { SyncLoader } from 'react-spinners';
 import PropTypes from 'prop-types';
 
 const override = css`
     display: block;
     margin: 0 auto;
-    border-color: red;
+    position: fixed;
+    top: 50%;
+    left: 41%;
 `;
 
 export class LoadingSpinner extends Component {
@@ -16,12 +18,11 @@ export class LoadingSpinner extends Component {
 
         return(
             <div className='sweet-loading'>
-                <ClimbingBoxLoader
+                <SyncLoader
                     css={override}
                     sizeUnit={"px"}
-                    size={150}
+                    size={50}
                     color={'#123abc'}
-                    loading={loading}
                 />
             </div> 
         )
@@ -29,7 +30,7 @@ export class LoadingSpinner extends Component {
 }
 
 LoadingSpinner.propTypes = {
-    loading: PropTypes.bool
+    css: PropTypes.object
 }
 
 export default LoadingSpinner;

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Nav from '../components/Nav';
 import { Input, Row, Container, Button } from 'react-materialize';
 import LoadingSpinner from '../components/LoadingSpinner';
 import * as actions from '../store/user/actions';
+import { Redirect } from 'react-router-dom'
 
 export class Login extends Component {
     constructor(props) {
@@ -21,6 +21,10 @@ export class Login extends Component {
     async handleLogin(){
         this.setState({ isLogginIn: true });
         await actions.loginCurrentUser(this.state.email, this. state.password);
+
+        if (this.props.currentUser.email !== '') {
+            return <Redirect to='/user' />
+        }
     }
 
     handleChange(event) {
@@ -34,7 +38,6 @@ export class Login extends Component {
     render() {
         return (
             <div className='login-container'>
-                <Nav/>
                 <Container>
                     {this.state.isLogginIn ?
                         <LoadingSpinner/>
