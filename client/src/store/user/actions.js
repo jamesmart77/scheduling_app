@@ -1,4 +1,5 @@
-import * as types from './actionTypes';
+import * as userActionTypes from './actionTypes';
+import * as responseHandlerActionTypes from '../responseHandler/actionTypes';
 import * as api from '../../api/service';
 
 export function loginCurrentUser(email, password) {
@@ -9,10 +10,10 @@ export function loginCurrentUser(email, password) {
                 'password': password
             };
             const currentUser = await api.loginCurrentUser(credentials);
-            dispatch({ type: types.CURRENT_USER_LOGIN, currentUser});
+            dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
         } catch (error) {
             console.error("Error logging in current user: ", error);
-            // TODO: add response handler error message dispatch here
+            dispatch({ type: responseHandlerActionTypes.LOGIN_UNAUTHROIZED})
         }
     }
 }

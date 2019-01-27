@@ -21,13 +21,13 @@ module.exports = {
   },
 
   async findOne(req, res) {
-      console.log("REQ: ", req.body);
     try {
-        let retrievedUser = await User.findOne({
+        const retrievedUser = await User.findOne({
             where: {email: req.body.email}
         })
 
-        if(bcrypt.compareSync(req.body.password, retrievedUser.password)){
+        if(bcrypt.compareSync(req.body.password, retrievedUser.password) ||
+            retrievedUser === null){
             
            const user = {
                email: retrievedUser.email,

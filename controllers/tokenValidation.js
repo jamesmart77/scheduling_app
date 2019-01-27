@@ -3,8 +3,9 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.tokenSecret;
 
 module.exports = {
-    sign: (user) => {
-        return jwt.sign(user, secret);
+    sign: (payload) => {
+        payload.expiresIn = '12h';
+        return jwt.sign(payload, secret);
     },
     verify: (token) => {
         return
