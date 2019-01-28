@@ -1,0 +1,17 @@
+body {
+  font-family: 'Raleway', sans-serif;
+  min-width: 360px; }
+
+.login-container .title-header {
+  color: #351330;
+  margin: 2rem 0; }
+
+.login-container button {
+  background-color: #64908A;
+  width: 100%; }
+
+.login-container hr {
+  margin-bottom: 20px; }
+
+nav {
+  background-color: #CC2A41 !important; }
