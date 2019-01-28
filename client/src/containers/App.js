@@ -1,36 +1,41 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Landing from './Landing'
 import Login from './Login'
 import { Row } from 'react-materialize';
 import Nav from '../components/Nav';
 import User from './User';
+import * as userActions from '../store/user/actions';
 
 export class App extends Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      isLoggedIn: false
-    };
+    this.handleLogout = this.handleLogout.bind(this);
   }
+
+  async handleLogout(){
+    await this.props.userActions.logoutCurrentUser();
+    window.location.replace('/');
+}
 
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <div className="App">
           <Row className='app-container'>
-            <Nav/>
+            <Nav handleLogout={this.handleLogout}/>
             <Switch>
               <Route exact path='/' component={Landing}/>
-              <Route path='/login' component={Login}/>
-              <Route path='/users' component={User}/>
+              <Route path='/users/login' component={Login}/>
+              <Route path='/users/home' component={User}/>
             </Switch>
           </Row>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -45,4 +50,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch){
+  return {
+      userActions: bindActionCreators(userActions, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

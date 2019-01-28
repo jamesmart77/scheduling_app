@@ -17,3 +17,14 @@ export function loginCurrentUser(email, password) {
         }
     }
 }
+
+export function logoutCurrentUser() {
+    return async(dispatch) => {
+        try {
+            await api.logoutCurrentUser();
+            dispatch({ type: userActionTypes.RESET_USER});
+        } catch (error) {
+            console.error("Error logging out current user: ", error);
+        }
+    }
+}

@@ -3,22 +3,18 @@ import { Navbar, NavItem} from 'react-materialize';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+
 export class Nav extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {}
-    }
-
     render(){
-        const { currentUser } = this.props;
+        const { currentUser, handleLogout } = this.props;
 
         return(
-            <Navbar brand='Sched-Aroo' right>
+            <Navbar id='nav' brand='Sched-Aroo' right>
                 {currentUser.email === '' ? (
-                    <NavItem href='/login'>Login</NavItem>
+                    <NavItem href='/users/login'>Login</NavItem>
                 ) : (
-                    <NavItem href='/'>Logout</NavItem>
+                    <NavItem onClick={handleLogout}>Logout</NavItem>
                 )}
             </Navbar>
         )
@@ -32,7 +28,8 @@ function mapStateToProps(state) {
 }
 
 Nav.propTypes = {
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    handleLogout: PropTypes.func
 };
 
 export default connect(mapStateToProps)(Nav);

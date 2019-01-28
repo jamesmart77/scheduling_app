@@ -31,7 +31,7 @@ export class Login extends Component {
 
     isUserLoggedIn(){
         if (this.props.currentUser.email !== '' && !this.props.loginUnauthorized) {
-            this.props.history.push('/users');
+            this.props.history.push('/users/home');
         }
     }
 
@@ -70,7 +70,7 @@ export class Login extends Component {
                         <LoadingSpinner/>
                     :
                         <div>
-                            <h5 className='center'>Login to Your Account</h5>
+                            <h5 className='title-header center'>Login to Your Account</h5>
                             <Row l={4} m={6} s={10}>
                                 <Input s={12}
                                     type="email" 
@@ -89,7 +89,9 @@ export class Login extends Component {
                             </Row>
                             <Row s={9}>
                                 <Button s={9} onClick={() => this.handleLogin()}>Login</Button>
-                                <hr/>
+                            </Row>
+                            <hr/>
+                            <Row s={9}>
                                 <Button s={9}>Create New Account</Button>
                             </Row>
                         </div>

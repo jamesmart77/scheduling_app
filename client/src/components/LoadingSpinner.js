@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 
 const override = css`
     display: block;
-    margin: 0 auto;
+    margin: 0 23%;
     position: fixed;
     top: 50%;
-    left: 41%;
 `;
 
 export class LoadingSpinner extends Component {
@@ -20,9 +19,9 @@ export class LoadingSpinner extends Component {
             <div className='sweet-loading'>
                 <SyncLoader
                     css={override}
-                    sizeUnit={"px"}
-                    size={50}
-                    color={'#123abc'}
+                    sizeUnit={"rem"}
+                    size={3.5}
+                    color={'#64908A'}
                 />
             </div> 
         )
