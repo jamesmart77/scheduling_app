@@ -18,3 +18,15 @@ export function loginCurrentUser(email, password) {
         }
     }
 }
+
+export function logoutCurrentUser() {
+    return async(dispatch) => {
+        try {
+            await api.logoutCurrentUser();
+            dispatch({ type: userActionTypes.LOGOUT_USER});
+        } catch (error) {
+            console.error("Error logging out user: ", error);
+            throw new Error(error);
+        }
+    }
+}

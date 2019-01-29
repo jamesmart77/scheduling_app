@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 import Landing from './Landing'
 import Login from './Login'
 import { Row } from 'react-materialize';
-import Nav from '../components/Nav';
+import Nav from './Nav';
 import User from './User';
 
 export class App extends Component {
 
   constructor(props){
     super(props);
+  
     this.state = {
       isLoggedIn: false
     };

@@ -5,10 +5,9 @@ import PropTypes from 'prop-types';
 
 const override = css`
     display: block;
-    margin: 0 auto;
+    margin: 0 25%;
     position: fixed;
     top: 50%;
-    left: 41%;
 `;
 
 export class LoadingSpinner extends Component {
@@ -22,7 +21,7 @@ export class LoadingSpinner extends Component {
                     css={override}
                     sizeUnit={"px"}
                     size={50}
-                    color={'#123abc'}
+                    color={'#64908A'}
                 />
             </div> 
         )
