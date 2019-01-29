@@ -25,7 +25,7 @@ export class Nav extends Component {
             <div className='nav-container'>
                 <Navbar brand='Sched-Aroo' right>
                     {currentUser.email === '' ? (
-                        <NavItem href='/login'>Login</NavItem>
+                        <NavItem href='/users/login'>Login</NavItem>
                     ) : (
                         <NavItem onClick={this.handleLogout}>Logout</NavItem>
                     )}

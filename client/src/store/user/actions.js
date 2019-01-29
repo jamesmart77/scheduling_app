@@ -30,3 +30,15 @@ export function logoutCurrentUser() {
         }
     }
 }
+
+export function userValidation() {
+    return async(dispatch) => {
+        try {
+            await api.userValidation();
+            dispatch({ type: responseHandlerActionTypes.USER_VALIDATION});
+        } catch (error) {
+            console.error("User validation: ", error);
+            dispatch({ type: responseHandlerActionTypes.RESET});
+        }
+    }
+}

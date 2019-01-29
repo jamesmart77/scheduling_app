@@ -1,6 +1,6 @@
 const User = require('../ORM/models').User;
 const bcrypt = require('bcrypt');
-const tokenValidation = require('./tokenValidation');
+const jwt = require('./jwt');
 
 module.exports = {
   async create(req, res) {
@@ -29,7 +29,7 @@ module.exports = {
         if(bcrypt.compareSync(req.body.password, retrievedUser.password) ||
             retrievedUser === null){
 
-            const token = await tokenValidation.sign();
+            const token = await jwt.sign();
 
             //store the JWT in the client's browser
             res.cookie('schedAroo_jwt', token);

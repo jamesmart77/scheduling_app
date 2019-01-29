@@ -11,3 +11,14 @@ export function loginUnauthorized(state = initialState.loginUnauthorized, action
             return state;
     }
 }
+
+export function isAuthenticated(state = initialState.isAuthenticated, action = {}) {
+    switch (action.type) {
+        case types.USER_VALIDATION:
+            return true;
+        case types.RESET:
+            return false;
+        default:
+            return state;
+    }
+}
