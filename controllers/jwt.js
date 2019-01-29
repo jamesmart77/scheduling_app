@@ -7,7 +7,13 @@ module.exports = {
         return jwt.sign({}, secret, { expiresIn: '12h'});
     },
     verify: (token) => {
-        return
+        try {
+            jwt.verify(token, secret);
+            return true;
+        } catch(error) {
+            console.error("JWT verify error: ", error);
+            return false;
+        }
     },
     decode: (token) => {
         return

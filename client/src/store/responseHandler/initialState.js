@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 
 export default Immutable({
-    loginUnauthorized: false
+    loginUnauthorized: false,
+    isAuthenticated: false
 })

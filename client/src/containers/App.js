@@ -26,7 +26,7 @@ export class App extends Component {
             <Nav/>
             <Switch>
               <Route exact path='/' component={Landing}/>
-              <Route path='/login' component={Login}/>
+              <Route path='/users/login' component={Login}/>
               <Route path='/users' component={User}/>
             </Switch>
           </Row>

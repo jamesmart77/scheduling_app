@@ -35,6 +35,11 @@ export const logoutCurrentUser = async() => {
     return responseHandler(response, 'logoutCurrentUser');
 };
 
+export const userValidation = async() => {
+    const response = await fetch('/api/users/validation', GET_Config);
+    return responseHandler(response, 'userValidation');
+};
+
 const responseHandler = async(response, funcName) => {
     if(!response.ok) {
         throw new Error(`API Service ${funcName} failed, HTTP status ${response.status}`);
