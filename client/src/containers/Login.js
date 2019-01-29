@@ -36,9 +36,13 @@ export class Login extends Component {
     }
 
     async handleLogin(){
-        this.setState({ isLoggingIn: true });
-        await this.props.userActions.loginCurrentUser(this.state.email, this. state.password);
-        this.setState({ isLoggingIn: false });
+        try {
+            this.setState({ isLoggingIn: true });
+            await this.props.userActions.loginCurrentUser(this.state.email, this. state.password);
+        } catch (error) {
+            console.log("Login Error: ", error);
+            this.setState({ isLoggingIn: false });
+        }
     }
 
     handleChange(event) {

@@ -14,6 +14,7 @@ export function loginCurrentUser(email, password) {
         } catch (error) {
             console.error("Error logging in current user: ", error);
             dispatch({ type: responseHandlerActionTypes.LOGIN_UNAUTHROIZED})
+            throw new Error(error);
         }
     }
 }
