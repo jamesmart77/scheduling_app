@@ -92,7 +92,7 @@ export class Login extends Component {
                                 />
                             </Row>
                             <Row s={9}>
-                                <Button s={9} onClick={() => this.handleLogin()}>Login</Button>
+                                <Button s={9} onClick={this.handleLogin}>Login</Button>
                                 <hr/>
                                 <Button s={9}>Create New Account</Button>
                             </Row>

@@ -30,6 +30,11 @@ export const loginCurrentUser = async(credentials) => {
     return responseHandler(response, 'loginCurrentUser');
 };
 
+export const logoutCurrentUser = async() => {
+    const response = await fetch('/api/users/logout', GET_Config);
+    return responseHandler(response, 'logoutCurrentUser');
+};
+
 const responseHandler = async(response, funcName) => {
     if(!response.ok) {
         throw new Error(`API Service ${funcName} failed, HTTP status ${response.status}`);
