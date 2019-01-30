@@ -42,3 +42,16 @@ export function userValidation() {
         }
     }
 }
+
+export function createUser(newUser) {
+    return async(dispatch) => {
+        try {
+            const currentUser = await api.createUser(newUser);
+            dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
+        } catch (error) {
+            console.error("Error creating and logging in current user: ", error);
+            dispatch({ type: responseHandlerActionTypes.LOGIN_UNAUTHROIZED})
+            throw new Error(error);
+        }
+    }
+}

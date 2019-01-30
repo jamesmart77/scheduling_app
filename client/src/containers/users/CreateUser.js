@@ -6,6 +6,8 @@ import { Row, Col, Input, Button, Container } from 'react-materialize';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import SweetAlert from 'sweetalert2-react';
+import * as EmailValidator from 'email-validator';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 export class CreateUser extends Component {
     constructor(props) {
@@ -17,7 +19,23 @@ export class CreateUser extends Component {
             lastName: '',
             email: '',
             password: '',
-            passwordConfirm: ''
+            passwordConfirm: '',
+            showModal: false,
+            isLoading: false
+        }
+    }
+
+    componentDidMount(){
+        this.isUserLoggedIn();
+    }
+
+    componentDidUpdate(){
+        this.isUserLoggedIn();
+    }
+
+    isUserLoggedIn(){
+        if (this.props.currentUser.email !== '' && !this.props.loginUnauthorized) {
+            this.props.history.push('/users');
         }
     }
 
@@ -29,19 +47,52 @@ export class CreateUser extends Component {
         });
     };
 
-    handleCreateUser() {
-
+    async handleCreateUser() {
+        const { firstName, lastName, email, password, passwordConfirm} = this.state;
+        if( firstName === '' ||
+            lastName === '' ||
+            email === '' ||
+            password === '' ||
+            passwordConfirm=== '' ||
+            !EmailValidator.validate(email) ||
+            (password !== passwordConfirm)) {
+                this.setState({ showModal: true });
+        } else {
+            const newUser = {
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+                password: password
+            }
+            try {
+                this.setState({ isLoading: true });
+                await this.props.userActions.createUser(newUser);
+            } catch {
+                this.setState({ isLoading: false });
+            }
+        }
     }
 
     render() {
+        const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul><li>All fields are populated</li><li>Email is valid</li><li>Passwords match</li></ul></div>";
         return (
             <div className='user-creation-container'>
                 <Container>
+                    {this.state.isLoading &&
+                        <LoadingSpinner/>
+                    }
+                    <SweetAlert
+                        show={this.state.showModal}
+                        type='error'
+                        title='Whoops!'
+                        html={htmlText}
+                        onConfirm={() => this.setState({ showModal: false })}
+                    />
                     <h5 className='header center'>Welcome to Sched-Aroo!</h5>
                     <div className='header-subtext'>
                         <p>
-                            Please provide the following information to create your account. Your informtion will
-                            not be sold or distributed but is simply to create an awesome experience!
+                            Please provide the following to create your account. Your informtion is safe - we're
+                            just need it to create an awesome experience!
                         </p>
                     </div>
                     <Row l={4} m={6} s={10}>

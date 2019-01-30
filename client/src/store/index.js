@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 import { currentUser } from './user/reducer';
-import { loginUnauthorized } from './responseHandler/reducer';
+import { loginUnauthorized, isAuthenticated } from './responseHandler/reducer';
 //import other reducers here
 
 const rootReducer = combineReducers({
     currentUser,
-    loginUnauthorized
+    loginUnauthorized,
+    isAuthenticated
 });
 
 export default rootReducer;

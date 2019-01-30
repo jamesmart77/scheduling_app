@@ -17,7 +17,7 @@ export function isAuthenticated(state = initialState.isAuthenticated, action = {
         case types.USER_VALIDATION:
             return true;
         case types.RESET:
-            return false;
+            return null;
         default:
             return state;
     }

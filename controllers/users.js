@@ -13,10 +13,16 @@ module.exports = {
             isAdmin: false
         });
 
+        delete user.password;
+        
+        const token = await jwt.sign();
+
+        //store the JWT in the client's browser
+        res.cookie('schedAroo_jwt', token);
         res.status(201).send(user);
     }
     catch (error) {
-        res.status(400).send(error)
+        res.status(500).send(error)
     };
   },
 

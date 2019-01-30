@@ -1,0 +1,10 @@
+@import './appColors';
+
+.swal2-modal {
+    .swal2-content {
+        ul:not(.browser-default)>li {
+            list-style-type: disc;
+            margin: 0 8rem;
+        }
+    }
+}
