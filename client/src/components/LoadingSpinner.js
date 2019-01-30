@@ -13,8 +13,6 @@ const override = css`
 export class LoadingSpinner extends Component {
 
     render(){
-        const { loading } = this.props;
-
         return(
             <div className='sweet-loading'>
                 <SyncLoader

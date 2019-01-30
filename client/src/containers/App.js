@@ -6,6 +6,7 @@ import Landing from './Landing'
 import Login from './users/Login'
 import { Row } from 'react-materialize';
 import Nav from './Nav';
+import CreateUser from './users/CreateUser';
 import User from './users/User';
 
 export class App extends Component {
@@ -26,8 +27,9 @@ export class App extends Component {
             <Nav/>
             <Switch>
               <Route exact path='/' component={Landing}/>
+              <Route exact path='/users' component={User}/>
               <Route path='/users/login' component={Login}/>
-              <Route path='/users' component={User}/>
+              <Route path='/users/create' component={CreateUser}/>
             </Switch>
           </Row>
         </div>

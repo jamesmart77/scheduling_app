@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import SweetAlert from 'sweetalert2-react';
-import PropTypes from 'prop-types';
 
 export class Unauthorized extends Component {
    render(){
@@ -16,10 +15,6 @@ export class Unauthorized extends Component {
             </div> 
         )
     }
-}
-
-Unauthorized.propTypes = {
-
 }
 
 export default Unauthorized;

@@ -14,6 +14,7 @@ export class Login extends Component {
         this.handleLogin = this.handleLogin.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleReset = this.handleReset.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
         this.state = {
             email: '',
             password: '',
@@ -35,10 +36,16 @@ export class Login extends Component {
         }
     }
 
+    handleRedirect(){
+        if (this.props.history) {
+            this.props.history.push('/users/create');
+        }
+    }
+
     async handleLogin(){
         try {
             this.setState({ isLoggingIn: true });
-            await this.props.userActions.loginCurrentUser(this.state.email, this. state.password);
+            await this.props.userActions.loginCurrentUser(this.state.email, this.state.password);
         } catch (error) {
             console.log("Login Error: ", error);
             this.setState({ isLoggingIn: false });
@@ -94,7 +101,7 @@ export class Login extends Component {
                             <Row s={9}>
                                 <Button s={9} onClick={this.handleLogin}>Login</Button>
                                 <hr/>
-                                <Button s={9}>Create New Account</Button>
+                                <Button s={9} onClick={this.handleRedirect}>Create New Account</Button>
                             </Row>
                         </div>
                     }
