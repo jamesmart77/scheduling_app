@@ -3,10 +3,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Landing from './Landing'
-import Login from './Login'
+import Login from './users/Login'
 import { Row } from 'react-materialize';
 import Nav from './Nav';
-import User from './User';
+import User from './users/User';
 
 export class App extends Component {
 

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Input, Row, Container, Button } from 'react-materialize';
-import LoadingSpinner from '../components/LoadingSpinner';
-import * as userActions from '../store/user/actions';
-import * as responseHandlerActions from '../store/responseHandler/actions';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import * as userActions from '../../store/user/actions';
+import * as responseHandlerActions from '../../store/responseHandler/actions';
 import SweetAlert from 'sweetalert2-react';
 
 export class Login extends Component {
