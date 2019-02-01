@@ -1,4 +1,5 @@
 body {
+  background-color: #fff;
   font-family: 'Raleway', sans-serif;
   min-width: 360px; }
 
@@ -12,6 +13,41 @@ body {
 
 .login-container hr {
   margin-bottom: 20px; }
+
+.landing-container {
+  background-color: #424254; }
+  .landing-container .header {
+    color: #fff !important;
+    font-size: 3rem;
+    margin-top: 4rem; }
+  .landing-container .description-text {
+    color: #fff !important; }
+  .landing-container .landing-button {
+    background-color: #64908A;
+    border-radius: 2rem;
+    margin-top: 1rem;
+    width: 100%; }
+  .landing-container .login-button {
+    font-weight: 700; }
+    .landing-container .login-button:hover {
+      background-color: #fff;
+      color: #64908A; }
+  .landing-container .new-account-button {
+    background-color: #fff;
+    color: #64908A;
+    border: solid 1px #64908A; }
+    .landing-container .new-account-button:hover {
+      background-color: #64908A;
+      color: #fff; }
+  .landing-container .landing-actions-row {
+    position: relative;
+    top: 5rem; }
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 450px) {
+  .landing-container .landing-actions-row {
+    position: relative;
+    top: 8.5rem; } }
 
 nav {
   background-color: #CC2A41 !important; }
