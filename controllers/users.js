@@ -13,14 +13,20 @@ module.exports = {
             isAdmin: false
         });
 
+        delete user.password;
+        
+        const token = await jwt.sign();
+
+        //store the JWT in the client's browser
+        res.cookie('schedAroo_jwt', token);
         res.status(201).send(user);
     }
     catch (error) {
-        res.status(400).send(error)
+        res.status(500).send(error)
     };
   },
 
-  async findOne(req, res) {
+  async userLogin(req, res) {
     try {
         const retrievedUser = await User.findOne({
             where: {email: req.body.email}
@@ -48,6 +54,25 @@ module.exports = {
     catch (error) {
         console.error("Error at user login. Error: ", error)
         res.status(400).send(error)
+    };
+  },
+
+  async isEmailAvailable(req, res) {
+    try {
+        const retrievedUser = await User.findOne({
+            where: {email: req.body.email}
+        })
+
+        if(retrievedUser === null){
+            res.status(200).send({});            
+        }
+        else{
+            res.status(401).send({message: "Email address is unavailable"}); 
+        }
+    }
+    catch (error) {
+        console.error("Error at user isEmailAvailable. Error: ", error)
+        res.status(500).send(error)
     };
   },
 };

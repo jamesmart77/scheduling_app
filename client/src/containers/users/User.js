@@ -5,18 +5,26 @@ import { bindActionCreators } from 'redux';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import Unauthorized from '../../components/Unauthorized';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 export class Home extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isLoading: true
+        }
     }
 
     componentWillMount(){
         this.props.userActions.userValidation();
+        this.setState({ isLoading: false })
     }
 
     render() {
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated, loginUnauthorized } = this.props;
+        if (this.state.isLoading){
+            return <LoadingSpinner/>
+        }
         if(!isAuthenticated) {
             return <Unauthorized/>
         } else {
@@ -45,7 +53,8 @@ function mapDispatchToProps(dispatch){
 
 Home.propTypes = {
     currentUser: PropTypes.object,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    loginUnauthorized: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

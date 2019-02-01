@@ -30,9 +30,21 @@ export const loginCurrentUser = async(credentials) => {
     return responseHandler(response, 'loginCurrentUser');
 };
 
+export const createUser = async(newUser) => {
+    POST_Config.body = JSON.stringify(newUser);
+    const response = await fetch('/api/users', POST_Config);
+    return responseHandler(response, 'createUser');
+};
+
 export const logoutCurrentUser = async() => {
     const response = await fetch('/api/users/logout', GET_Config);
     return responseHandler(response, 'logoutCurrentUser');
+};
+
+export const emailAddressValidation = async(address) => {
+    POST_Config.body = JSON.stringify(address);
+    const response = await fetch('/api/users/available', POST_Config);
+    return responseHandler(response, 'emailAddressValidation');
 };
 
 export const userValidation = async() => {

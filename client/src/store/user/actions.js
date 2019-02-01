@@ -1,5 +1,6 @@
 import * as userActionTypes from './actionTypes';
 import * as responseHandlerActionTypes from '../responseHandler/actionTypes';
+import * as responseHandlerActions from '../responseHandler/actions';
 import * as api from '../../api/service';
 
 export function loginCurrentUser(email, password) {
@@ -39,6 +40,32 @@ export function userValidation() {
         } catch (error) {
             console.error("User validation: ", error);
             dispatch({ type: responseHandlerActionTypes.RESET});
+        }
+    }
+}
+
+export function createUser(newUser) {
+    return async(dispatch) => {
+        try {
+            const currentUser = await api.createUser(newUser);
+            dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
+        } catch (error) {
+            console.error("Error creating and logging in current user: ", error);
+            dispatch({ type: responseHandlerActionTypes.LOGIN_UNAUTHROIZED})
+            throw new Error(error);
+        }
+    }
+}
+
+export function emailAddressValidation(address) {
+    return async(dispatch) => {
+        try {
+            await api.emailAddressValidation({email: address});
+            await dispatch(responseHandlerActions.reset());
+        } catch (error) {
+            console.error("Error emailAddressValidation: ", error);
+            console.log("ERROR: ", error.message)
+            await dispatch(responseHandlerActions.errorHandler(error));
         }
     }
 }

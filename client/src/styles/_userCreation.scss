@@ -1,0 +1,35 @@
+@import './appColors';
+
+.user-creation-container {
+    .header {
+        margin-top: 2rem;
+    }
+
+    .header-subtext {
+        color: $subTextGrey;
+    }
+
+    .do-not-disturb-icon {
+        color: $primarySalmon;
+        margin: 2.5rem 0 0 .5rem;
+    }
+
+    .check-icon {
+        color: $primaryTeal;
+        margin: 2.5rem 0 0 .5rem;
+    }
+
+    .create-user-button {
+        width: 100%;
+        background-color: $primaryTeal;
+    }
+}
+
+.swal2-modal {
+    .swal2-content {
+        ul:not(.browser-default)>li {
+            list-style-type: disc;
+            margin: .5rem 3rem;
+        }
+    }
+}
