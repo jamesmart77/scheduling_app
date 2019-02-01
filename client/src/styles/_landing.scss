@@ -1,0 +1,60 @@
+@import 'appColors';
+
+.landing-container {
+    background-color: $primarySlate;
+
+    .header {
+        color: $white !important;
+        font-size: 3rem;
+        margin-top: 4rem;
+    }
+
+    .description-text {
+        color: $white !important;
+    }
+
+    .landing {
+        &-button {
+            background-color: $primaryTeal;
+            border-radius: 2rem;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+    }
+    .login-button {
+        font-weight: 700;
+
+        &:hover {
+            background-color: $white;
+            color: $primaryTeal;
+        }
+    }
+
+    .new-account-button {
+        background-color: $white;
+        color: $primaryTeal;
+        border: solid 1px $primaryTeal;
+
+        &:hover {
+            background-color: $primaryTeal;
+            color: $white;
+        }
+    }
+
+    .landing-actions-row {
+        position: relative;
+        top: 5rem;
+    }
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 450px) {
+    .landing-container{
+        .landing-actions-row {
+            position: relative;
+            top: 8.5rem;
+        }
+    }
+}

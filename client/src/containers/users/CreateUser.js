@@ -86,75 +86,75 @@ export class CreateUser extends Component {
         const { isEmailAvailable } = this.props;
         const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul><li>All fields are populated</li><li>Email is properly formatted</li><li>Email is available (check mark)</li><li>Passwords match</li></ul></div>";
         console.log("isEmailAddressAvailable: ", isEmailAvailable);
-        return (
-            <div className='user-creation-container'>
-                <Container>
-                    {this.state.isLoading &&
-                        <LoadingSpinner/>
-                    }
-                    <SweetAlert
-                        show={this.state.showModal}
-                        type='error'
-                        title='Whoops!'
-                        html={htmlText}
-                        onConfirm={() => this.setState({ showModal: false })}
-                    />
-                    <h5 className='header center'>Welcome to Sched-Aroo!</h5>
-                    <div className='header-subtext'>
-                        <p>
-                            Please provide the following to create your account. Your informtion is safe - we're
-                            just need it to create an awesome experience!
-                        </p>
-                    </div>
-                    <Row l={4} m={6} s={10}>
-                        <Input s={11}
-                            type="email" 
-                            label="Email"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.handleChange}
+        if(this.state.isLoading){
+            return <LoadingSpinner/>
+        } else {
+            return (
+                <div className='user-creation-container'>
+                    <Container>
+                        <SweetAlert
+                            show={this.state.showModal}
+                            type='error'
+                            title='Whoops!'
+                            html={htmlText}
+                            onConfirm={() => this.setState({ showModal: false })}
                         />
-                        {isEmailAvailable ? (
-                            <Icon tiny className='check-icon'>check</Icon>
-                        ) : (
-                            <Icon tiny className='do-not-disturb-icon'>do_not_disturb</Icon>
-                        )}
-                        <Input s={12} m={6}
-                            type="text" 
-                            label="First Name"
-                            name="firstName"
-                            value={this.state.firstName}
-                            onChange={this.handleChange}
-                        />
-                        <Input s={12} m={6}
-                            type="text" 
-                            label="Last Name"
-                            name="lastName"
-                            value={this.state.lastName}
-                            onChange={this.handleChange}
-                        />
-                        <Input s={12} m={6}
-                            type="password" 
-                            label="Password" 
-                            name="password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                        />
-                        <Input s={12} m={6}
-                            type="password" 
-                            label="Confirm Password" 
-                            name="passwordConfirm"
-                            value={this.state.passwordConfirm}
-                            onChange={this.handleChange}
-                        />
-                    </Row>
-                    <Row s={9}>
-                        <Button s={9} className='create-user-button' onClick={this.handleCreateUser}>Create Account</Button>
-                    </Row>
-
-                </Container>
-            </div>
-        )
+                        <h5 className='header center'>Welcome to Sched-Aroo!</h5>
+                        <div className='header-subtext'>
+                            <p>
+                                Please provide the following to create your account. Your informtion is safe - we're
+                                just need it to create an awesome experience!
+                            </p>
+                        </div>
+                        <Row l={4} m={6} s={10}>
+                            <Input s={11}
+                                type="email" 
+                                label="Email"
+                                name="email"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                            />
+                            {isEmailAvailable ? (
+                                <Icon tiny className='check-icon'>check</Icon>
+                            ) : (
+                                <Icon tiny className='do-not-disturb-icon'>do_not_disturb</Icon>
+                            )}
+                            <Input s={12} m={6}
+                                type="text" 
+                                label="First Name"
+                                name="firstName"
+                                value={this.state.firstName}
+                                onChange={this.handleChange}
+                            />
+                            <Input s={12} m={6}
+                                type="text" 
+                                label="Last Name"
+                                name="lastName"
+                                value={this.state.lastName}
+                                onChange={this.handleChange}
+                            />
+                            <Input s={12} m={6}
+                                type="password" 
+                                label="Password" 
+                                name="password"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                            />
+                            <Input s={12} m={6}
+                                type="password" 
+                                label="Confirm Password" 
+                                name="passwordConfirm"
+                                value={this.state.passwordConfirm}
+                                onChange={this.handleChange}
+                            />
+                        </Row>
+                        <Row s={9}>
+                            <Button s={9} className='create-user-button' onClick={this.handleCreateUser}>Create Account</Button>
+                        </Row>
+                    </Container>
+                </div>
+            )
+        }
     }
 }
 

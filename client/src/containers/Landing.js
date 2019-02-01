@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Container, Card, Col, Row, Button } from 'react-materialize';
 
 export class Landing extends Component {
     constructor(props) {
@@ -10,7 +11,48 @@ export class Landing extends Component {
     render() {
         return (
             <div className='landing-container'>
-                <h5>Welcome to the landing page!</h5>
+                <Container>
+                    <Row>
+                        <Col l={10} s={12} offset='l1'>
+                            <div>
+                                <Row>
+                                    <h3 className='header center'>Own Your Group Schedules</h3>
+                                </Row>
+                                <Row>
+                                    <Col s={12}>
+                                        <div className='description-text center'>
+                                            <p>
+                                                Tired of manually working your group schedules? Let <b>Sched-Aroo</b> do the heavy 
+                                                lifting for you!
+                                            </p>
+                                            <p>
+                                                With our dynamic algorithems that consider volunteer unavailability dates, 
+                                                service area preferences, and provide an elegant user experience, scheduling 
+                                                recurring group events will turn to ease.
+                                            </p>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row className='landing-actions-row'>
+                                    <Col m={6} s={12}>
+                                        <Button
+                                            className='landing-button login-button'
+                                            waves='light' 
+                                            node='a' 
+                                            href='/users/login'>Login</Button>
+                                    </Col>
+                                    <Col m={6} s={12}>
+                                        <Button
+                                            className='landing-button new-account-button right'
+                                            waves='light' 
+                                            node='a' 
+                                            href='/users/create'>Create New Account</Button>
+                                    </Col>
+                                </Row>
+                            </div>              
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )
     }

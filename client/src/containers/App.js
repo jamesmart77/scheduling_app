@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Landing from './Landing'
 import Login from './users/Login'
@@ -8,23 +9,35 @@ import { Row } from 'react-materialize';
 import Nav from './Nav';
 import CreateUser from './users/CreateUser';
 import User from './users/User';
+import SweetAlert from 'sweetalert2-react';
+import * as responseHandlerActions from '../store/responseHandler/actions';
 
 export class App extends Component {
 
   constructor(props){
     super(props);
-  
-    this.state = {
-      isLoggedIn: false
-    };
+    this.handleErrorReset = this.handleErrorReset.bind(this);
+  }
+
+  handleErrorReset(){
+    this.props.responseHandlerActions.reset();
   }
 
   render() {
+    const { isServerError } = this.props;
+    console.log("isServerError: ", isServerError);
     return (
       <BrowserRouter>
         <div className="App">
           <Row className='app-container'>
             <Nav/>
+            <SweetAlert
+              show={isServerError}
+              type='error'
+              title='An Error Occurred'
+              text='We have caught an error that occurred with a recent action you performed. Please retry and contact your group owner if problem persists.'
+              onConfirm={this.handleErrorReset}
+            />
             <Switch>
               <Route exact path='/' component={Landing}/>
               <Route exact path='/users' component={User}/>
@@ -39,13 +52,21 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element,
+  isServerError: PropTypes.bool
 };
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    isServerError: state.isServerError
   }
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch){
+  return {
+      responseHandlerActions: bindActionCreators(responseHandlerActions, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
