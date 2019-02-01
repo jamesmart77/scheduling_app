@@ -17,7 +17,29 @@ export function isAuthenticated(state = initialState.isAuthenticated, action = {
         case types.USER_VALIDATION:
             return true;
         case types.RESET:
-            return null;
+            return false;
+        default:
+            return state;
+    }
+}
+
+export function isEmailAvailable(state = initialState.isEmailAvailable, action = {}) {
+    switch (action.type) {
+        case types.EMAIL_ADDRESS_AVAILABLE:
+            return false;
+        case types.RESET:
+            return true;
+        default:
+            return state;
+    }
+}
+
+export function isServerError(state = initialState.isServerError, action = {}) {
+    switch (action.type) {
+        case types.SERVER_ERROR:
+            return true;
+        case types.RESET:
+            return true;
         default:
             return state;
     }

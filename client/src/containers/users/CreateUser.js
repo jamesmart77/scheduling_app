@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Input, Button, Container } from 'react-materialize';
+import { Row, Input, Button, Container, Icon } from 'react-materialize';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import SweetAlert from 'sweetalert2-react';
@@ -45,7 +45,15 @@ export class CreateUser extends Component {
         this.setState({
             [name]: value
         });
+
+        if(name === 'email' && EmailValidator.validate(value)) {
+            this.handleEmailValidation(value);
+        }
     };
+
+    handleEmailValidation(address) {
+        this.props.userActions.emailAddressValidation(address);
+    }
 
     async handleCreateUser() {
         const { firstName, lastName, email, password, passwordConfirm} = this.state;
@@ -55,6 +63,7 @@ export class CreateUser extends Component {
             password === '' ||
             passwordConfirm=== '' ||
             !EmailValidator.validate(email) ||
+            !this.props.isEmailAvailable ||
             (password !== passwordConfirm)) {
                 this.setState({ showModal: true });
         } else {
@@ -74,7 +83,9 @@ export class CreateUser extends Component {
     }
 
     render() {
-        const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul><li>All fields are populated</li><li>Email is valid</li><li>Passwords match</li></ul></div>";
+        const { isEmailAvailable } = this.props;
+        const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul><li>All fields are populated</li><li>Email is properly formatted</li><li>Email is available (check mark)</li><li>Passwords match</li></ul></div>";
+        console.log("isEmailAddressAvailable: ", isEmailAvailable);
         return (
             <div className='user-creation-container'>
                 <Container>
@@ -96,13 +107,18 @@ export class CreateUser extends Component {
                         </p>
                     </div>
                     <Row l={4} m={6} s={10}>
-                        <Input s={12}
+                        <Input s={11}
                             type="email" 
                             label="Email"
                             name="email"
                             value={this.state.email}
                             onChange={this.handleChange}
                         />
+                        {isEmailAvailable ? (
+                            <Icon tiny className='check-icon'>check</Icon>
+                        ) : (
+                            <Icon tiny className='do-not-disturb-icon'>do_not_disturb</Icon>
+                        )}
                         <Input s={12} m={6}
                             type="text" 
                             label="First Name"
@@ -133,7 +149,7 @@ export class CreateUser extends Component {
                         />
                     </Row>
                     <Row s={9}>
-                        <Button s={9} onClick={this.handleCreateUser}>Done</Button>
+                        <Button s={9} className='create-user-button' onClick={this.handleCreateUser}>Create Account</Button>
                     </Row>
 
                 </Container>
@@ -145,7 +161,8 @@ export class CreateUser extends Component {
 function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
-        isAuthenticated: state.isAuthenticated
+        isAuthenticated: state.isAuthenticated,
+        isEmailAvailable: state.isEmailAvailable
     }
 }
 
@@ -158,7 +175,8 @@ function mapDispatchToProps(dispatch){
 
 CreateUser.propTypes = {
     currentUser: PropTypes.object,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    isEmailAvailable: PropTypes.bool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);

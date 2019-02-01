@@ -16,6 +16,24 @@ body {
 nav {
   background-color: #CC2A41 !important; }
 
+.user-creation-container .header {
+  margin-top: 2rem; }
+
+.user-creation-container .header-subtext {
+  color: #696969; }
+
+.user-creation-container .do-not-disturb-icon {
+  color: #CC2A41;
+  margin: 2.5rem 0 0 .5rem; }
+
+.user-creation-container .check-icon {
+  color: #64908A;
+  margin: 2.5rem 0 0 .5rem; }
+
+.user-creation-container .create-user-button {
+  width: 100%;
+  background-color: #64908A; }
+
 .swal2-modal .swal2-content ul:not(.browser-default) > li {
   list-style-type: disc;
-  margin: 0 8rem; }
+  margin: .5rem 3rem; }

@@ -35,7 +35,9 @@ router.get('/logout', (req, res) => {
     }
 });
 
-router.post('/login', usersController.findOne);
+router.post('/login', usersController.userLogin);
+
+router.post('/available', usersController.isEmailAvailable);
 
 router.post('/', usersController.create);
 

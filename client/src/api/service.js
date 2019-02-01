@@ -41,6 +41,12 @@ export const logoutCurrentUser = async() => {
     return responseHandler(response, 'logoutCurrentUser');
 };
 
+export const emailAddressValidation = async(address) => {
+    POST_Config.body = JSON.stringify(address);
+    const response = await fetch('/api/users/available', POST_Config);
+    return responseHandler(response, 'emailAddressValidation');
+};
+
 export const userValidation = async() => {
     const response = await fetch('/api/users/validation', GET_Config);
     return responseHandler(response, 'userValidation');
