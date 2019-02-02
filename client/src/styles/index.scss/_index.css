@@ -63,6 +63,9 @@ nav {
 .user-creation-container .header-subtext {
   color: #696969; }
 
+.user-creation-container .do-not-disturb-tooltip {
+  position: fixed !important; }
+
 .user-creation-container .do-not-disturb-icon {
   color: #CC2A41;
   margin: 2.5rem 0 0 .5rem; }

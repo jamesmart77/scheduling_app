@@ -6,6 +6,7 @@ import { Row, Input, Button, Container, Icon } from 'react-materialize';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import SweetAlert from 'sweetalert2-react';
+import ReactToolTip from 'react-tooltip';
 import * as EmailValidator from 'email-validator';
 import LoadingSpinner from '../../components/LoadingSpinner';
 
@@ -140,8 +141,11 @@ export class CreateUser extends Component {
                             />
                             {isEmailAvailable ? (
                                 <Icon tiny className='check-icon'>check</Icon>
-                            ) : (
-                                <Icon tiny className='do-not-disturb-icon'>do_not_disturb</Icon>
+                             ) : (
+                                <div data-tip='This email address is not available' data-type='error'>
+                                    <ReactToolTip effect="solid" className='do-not-disturb-tooltip'/>
+                                    <Icon tiny className='do-not-disturb-icon'>do_not_disturb</Icon>
+                                </div>
                             )}
                             <Input s={12} m={6}
                                 type="text" 
