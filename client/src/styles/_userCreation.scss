@@ -9,6 +9,10 @@
         color: $subTextGrey;
     }
 
+    .do-not-disturb-tooltip {
+        position: fixed !important;
+    }
+
     .do-not-disturb-icon {
         color: $primarySalmon;
         margin: 2.5rem 0 0 .5rem;
