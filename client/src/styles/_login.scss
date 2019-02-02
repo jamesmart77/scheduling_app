@@ -1,16 +1,12 @@
 @import 'appColors';
 
 .login-container {
-    .title-header {
-        color: $primaryPurple;
+    .header {
+        color: $primarySlate;
         margin: 2rem 0;
     }
 
-    button {
-        background-color: $primaryTeal;
-        width: 100%;
-    }
     hr {
-        margin-bottom: 20px;
+        margin: 2rem 2rem 1rem;
     }
 }

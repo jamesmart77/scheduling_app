@@ -25,10 +25,6 @@ app.use(cookieParser());
 app.use(routes);
 
 if (process.env.NODE_ENV === 'production') {
-  // Handle React routing, return all requests to React app
-  // app.get('*', (req, res) => {
-  //   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  // });
   
   db.sequelize.sync().then(() => {
     app.listen(port, () => {
@@ -38,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
 
 } else {
   db.sequelize.sync({
-    //   force: true
+      force: true
   }).then(() => {
       app.listen(port, () => {
           console.log("App listening on PORT " + port);

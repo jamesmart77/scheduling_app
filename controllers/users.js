@@ -13,6 +13,7 @@ module.exports = {
             isAdmin: false
         });
 
+        //don't send password back to frontend
         delete user.password;
         
         const token = await jwt.sign();
@@ -48,12 +49,12 @@ module.exports = {
         }
         else{
             res.status(401).send({
-                message: "No user account found"}); 
+                message: "Login credentials invalid"}); 
         }
     }
     catch (error) {
         console.error("Error at user login. Error: ", error)
-        res.status(400).send(error)
+        res.status(500).send(error)
     };
   },
 

@@ -27,7 +27,7 @@ const DELETE_Config = {
 export const loginCurrentUser = async(credentials) => {
     POST_Config.body = JSON.stringify(credentials);
     const response = await fetch('/api/users/login', POST_Config);
-    return responseHandler(response, 'loginCurrentUser');
+    return responseHandler(response, 'loginCurrentUser'); 
 };
 
 export const createUser = async(newUser) => {

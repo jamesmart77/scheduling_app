@@ -4,8 +4,9 @@ export function errorHandler(error) {
     return async(dispatch) => {
         const errorMessage = error.message;
 
-        if(error.toString().includes("loginCurrentUser") && error.toString().includes("HTTP status 401")){
-            dispatch({ type: types.LOGIN_UNAUTHROIZED});
+        if((errorMessage.includes("loginCurrentUser") && errorMessage.includes("HTTP status 401")) ||
+            (errorMessage.includes("createUser"))){
+                dispatch({ type: types.LOGIN_UNAUTHROIZED});
         } else {
             if(errorMessage.includes("emailAddressValidation") && errorMessage.includes("HTTP status 401")){
                 console.log("INSIDE EMAIL ACTION")

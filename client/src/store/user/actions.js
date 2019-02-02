@@ -14,7 +14,7 @@ export function loginCurrentUser(email, password) {
             dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
         } catch (error) {
             console.error("Error logging in current user: ", error);
-            dispatch({ type: responseHandlerActionTypes.LOGIN_UNAUTHROIZED})
+            dispatch(responseHandlerActions.errorHandler(error));
             throw new Error(error);
         }
     }
@@ -51,7 +51,9 @@ export function createUser(newUser) {
             dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
         } catch (error) {
             console.error("Error creating and logging in current user: ", error);
-            dispatch({ type: responseHandlerActionTypes.LOGIN_UNAUTHROIZED})
+            dispatch(responseHandlerActions.errorHandler(error));
+
+            //additional error needed for managing local state loading spinner
             throw new Error(error);
         }
     }

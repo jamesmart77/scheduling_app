@@ -39,7 +39,7 @@ export function isServerError(state = initialState.isServerError, action = {}) {
         case types.SERVER_ERROR:
             return true;
         case types.RESET:
-            return true;
+            return false;
         default:
             return state;
     }

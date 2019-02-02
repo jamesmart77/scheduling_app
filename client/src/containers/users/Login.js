@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Input, Row, Container, Button } from 'react-materialize';
+import { Input, Row, Container, Button, Col } from 'react-materialize';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
@@ -81,7 +81,7 @@ export class Login extends Component {
                         <LoadingSpinner/>
                     :
                         <div>
-                            <h5 className='center'>Login to Your Account</h5>
+                            <h5 className='header center'>Login to Your Account</h5>
                             <Row l={4} m={6} s={10}>
                                 <Input s={12}
                                     type="email" 
@@ -98,10 +98,12 @@ export class Login extends Component {
                                     onChange={this.handleChange}
                                 />
                             </Row>
-                            <Row s={9}>
-                                <Button s={9} onClick={this.handleLogin}>Login</Button>
-                                <hr/>
-                                <Button s={9} onClick={this.handleRedirect}>Create New Account</Button>
+                            <Row>
+                                <Col l={8} s={12} offset='l2'>
+                                    <Button className='primary-button' s={9} onClick={this.handleLogin}>Login</Button>
+                                    <hr/>
+                                    <Button className='secondary-button' s={9} onClick={this.handleRedirect}>Create New Account</Button>
+                                </Col>
                             </Row>
                         </div>
                     }
