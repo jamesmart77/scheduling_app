@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Navbar, NavItem} from 'react-materialize';
+import { Navbar, NavItem } from 'react-materialize';
 import * as userActions from '../store/user/actions';
 
 export class Nav extends Component {
@@ -27,7 +27,10 @@ export class Nav extends Component {
                     {currentUser.email === '' ? (
                         <NavItem href='/users/login'>Login</NavItem>
                     ) : (
-                        <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                        <div>
+                            <NavItem href='/groups/create'>Create Group</NavItem>
+                            <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                        </div>
                     )}
                 </Navbar>
             </div>

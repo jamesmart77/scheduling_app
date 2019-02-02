@@ -16,7 +16,7 @@ module.exports = {
         //don't send password back to frontend
         delete user.password;
         
-        const token = await jwt.sign();
+        const token = await jwt.sign(user.email);
 
         //store the JWT in the client's browser
         res.cookie('schedAroo_jwt', token);
@@ -36,7 +36,7 @@ module.exports = {
         if(bcrypt.compareSync(req.body.password, retrievedUser.password) ||
             retrievedUser === null){
 
-            const token = await jwt.sign();
+            const token = await jwt.sign(retrievedUser.email);
 
             //store the JWT in the client's browser
             res.cookie('schedAroo_jwt', token);
