@@ -25,6 +25,7 @@ Schema diagram can be found at repo root level as png file or [click here](https
 ## Initial Setup
  - Add a `.env` file with the tokenSecret value of your choosing. This is needed for the signing of the JWT
  - Run `createdb scheduler-dev` in the terminal. You must have Postgres installed to perform this. This will create the local database
+ - Modify the ORM/config file accordingly with your credentials to connect to your local db
  - Run `sequelize db:migrate` in the terminal before launching the application. This will perform all the migrations to setup the database
  - `Yarn` && cd/client `Yarn` - node module installs for server and client dependencies
  - `Yarn dev` to launch the app locally
