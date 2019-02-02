@@ -36,14 +36,14 @@ export class Landing extends Component {
                                 <Row className='landing-actions-row'>
                                     <Col m={6} s={12}>
                                         <Button
-                                            className='landing-button login-button'
+                                            className='primary-button login-button'
                                             waves='light' 
                                             node='a' 
                                             href='/users/login'>Login</Button>
                                     </Col>
                                     <Col m={6} s={12}>
                                         <Button
-                                            className='landing-button new-account-button right'
+                                            className='secondary-button right'
                                             waves='light' 
                                             node='a' 
                                             href='/users/create'>Create New Account</Button>

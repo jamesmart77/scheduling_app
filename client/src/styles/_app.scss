@@ -1,5 +1,35 @@
+@import 'appColors';
+
 body {
     background-color: #fff;
     font-family: 'Raleway', sans-serif;
     min-width: 360px;
+}
+
+.primary-button {
+    background-color: $primaryTeal;
+    border-radius: 2rem;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    width: 100%;
+
+    &:hover {
+        background-color: $white;
+        color: $primaryTeal;
+    }
+}
+
+.secondary-button {
+    background-color: $white;
+    border: solid 1px $primaryTeal;
+    border-radius: 2rem;
+    color: $primaryTeal;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    width: 100%;
+
+    &:hover {
+        background-color: $primaryTeal;
+        color: $white;
+    }
 }

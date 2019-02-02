@@ -13,7 +13,9 @@ export class CreateUser extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.handleCreateUser = this.handleCreateUser.bind(this);
+        this.handleSubmitBug = this.handleSubmitBug.bind(this);
         this.state = {
             firstName: '',
             lastName: '',
@@ -55,6 +57,17 @@ export class CreateUser extends Component {
         this.props.userActions.emailAddressValidation(address);
     }
 
+
+    handleReset(){
+        this.props.responseHandlerActions.reset();
+    }
+
+    handleSubmitBug(){
+        let win = window.open("https://github.com/jamesmart77/scheduling_app/issues", "_blank")
+        win.focus();
+        this.handleReset();
+    }
+
     async handleCreateUser() {
         const { firstName, lastName, email, password, passwordConfirm} = this.state;
         if( firstName === '' ||
@@ -83,9 +96,9 @@ export class CreateUser extends Component {
     }
 
     render() {
-        const { isEmailAvailable } = this.props;
+        const { isEmailAvailable, loginUnauthorized } = this.props;
         const htmlText = "<div>Some of the information provided seems to invalid. Verify the following and try again.<ul><li>All fields are populated</li><li>Email is properly formatted</li><li>Email is available (check mark)</li><li>Passwords match</li></ul></div>";
-        console.log("isEmailAddressAvailable: ", isEmailAvailable);
+        
         if(this.state.isLoading){
             return <LoadingSpinner/>
         } else {
@@ -99,11 +112,22 @@ export class CreateUser extends Component {
                             html={htmlText}
                             onConfirm={() => this.setState({ showModal: false })}
                         />
+                        <SweetAlert
+                            show={loginUnauthorized}
+                            type='error'
+                            title='Error'
+                            text='An error occurred when creating your account. Please retry and if problem persists submit a bug on GitHub.'
+                            onConfirm={this.handleReset}
+                            showCancelButton={true}
+                            cancelButtonText='Submit Bug'
+                            onCancel={this.handleSubmitBug}
+
+                        />
                         <h5 className='header center'>Welcome to Sched-Aroo!</h5>
                         <div className='header-subtext'>
                             <p>
-                                Please provide the following to create your account. Your informtion is safe - we're
-                                just need it to create an awesome experience!
+                                Please provide the following to create your account. Your informtion is safe - we'll
+                                just use it to create an awesome experience!
                             </p>
                         </div>
                         <Row l={4} m={6} s={10}>
@@ -149,7 +173,7 @@ export class CreateUser extends Component {
                             />
                         </Row>
                         <Row s={9}>
-                            <Button s={9} className='create-user-button' onClick={this.handleCreateUser}>Create Account</Button>
+                            <Button s={9} className='primary-button' onClick={this.handleCreateUser}>Create Account</Button>
                         </Row>
                     </Container>
                 </div>
@@ -162,7 +186,8 @@ function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
         isAuthenticated: state.isAuthenticated,
-        isEmailAvailable: state.isEmailAvailable
+        isEmailAvailable: state.isEmailAvailable,
+        loginUnauthorized: state.loginUnauthorized,
     }
 }
 
@@ -177,6 +202,7 @@ CreateUser.propTypes = {
     currentUser: PropTypes.object,
     isAuthenticated: PropTypes.bool,
     isEmailAvailable: PropTypes.bool,
+    loginUnauthorized: PropTypes.bool,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);
