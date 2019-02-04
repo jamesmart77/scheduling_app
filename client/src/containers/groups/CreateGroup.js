@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Input, Button, Container, Icon, Tag, Col } from 'react-materialize';
+import { Row, Input, Button, Container, Icon, Chip, Col } from 'react-materialize';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import SweetAlert from 'sweetalert2-react';
@@ -16,6 +16,7 @@ export class CreateGroup extends Component {
         this.handleReset = this.handleReset.bind(this);
         this.handleCreateUser = this.handleCreateUser.bind(this);
         this.handleAddInvite = this.handleAddInvite.bind(this);
+        this.handleRemoveInvite = this.handleRemoveInvite.bind(this);
         this.initialPageLoad = this.initialPageLoad.bind(this);
         this.state = {
             name: '',
@@ -49,8 +50,16 @@ export class CreateGroup extends Component {
     }
 
     handleAddInvite(){
-        this.state.invites.push(this.state.email);
+        if(!this.state.invites.includes(this.state.email)) {
+            this.state.invites.push(this.state.email);
+        }
+        
         this.setState({ email: ''});
+    }
+
+    handleRemoveInvite(email){
+        const updatedInvites = this.state.invites.filter(invitee => invitee !== email);
+        this.setState({ invites: updatedInvites });
     }
 
     async handleCreateUser() {
@@ -100,7 +109,7 @@ export class CreateGroup extends Component {
                                 </p>
                             </div>
                             <Row>
-                                <Col l={4} m={6} s={10}>
+                                <Col m={6} s={10} offset='m3 s1'>
                                     <Input s={12}
                                         type="text" 
                                         label="Group Name"
@@ -108,27 +117,42 @@ export class CreateGroup extends Component {
                                         value={this.state.name}
                                         onChange={this.handleChange}
                                     />
-                                    <Input s={9}
+                                    <Input s={10}
                                         type="text" 
                                         label="Invite Members"
                                         name="email"
                                         value={this.state.email}
                                         onChange={this.handleChange}
                                     />
-                                    <div onClick={this.handleAddInvite}>
-                                        <Icon medium>add</Icon>
-                                    </div>
+                                    <Button floating 
+                                            className='add-invite-btn right'
+                                            onClick={this.handleAddInvite} 
+                                            icon='add' />
+                                
                                 </Col>
                                 <Col s={12}>
                                     <div className='group-invite-list'>
-                                        {invites.length !== 0 && invites.map(email => {
-                                            return(<Tag className='user-pill' close={true}>{email}</Tag>)
+                                        {invites.length > 0 && <p>Members to Invite</p>}
+                                        {invites.length > 0 && invites.map(email => {
+                                            return(<Chip
+                                                        key={email}
+                                                        className='user-pill'
+                                                        close={false}>
+                                                            <Col s={10} className='user-pill-text'>{email}</Col>
+                                                            <Col s={2}>
+                                                                <div onClick={() => this.handleRemoveInvite(email)}>
+                                                                    <Icon className='user-pill-close-btn'>close</Icon>
+                                                                </div>
+                                                            </Col>
+                                                    </Chip>)
                                         })}
                                     </div>
                                 </Col>
                             </Row>
-                            <Row s={9}>
-                                <Button s={9} className='primary-button' onClick={this.handleCreateUser}>Create Account</Button>
+                            <Row>
+                                <Col s={8} offset='s2'>
+                                    <Button className='primary-button' onClick={this.handleCreateUser}>Create Account</Button>
+                                </Col>
                             </Row>
                         </Container>
                     </div>

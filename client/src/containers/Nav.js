@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navbar, NavItem } from 'react-materialize';
+import { Link } from 'react-router-dom';
 import * as userActions from '../store/user/actions';
 
 export class Nav extends Component {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
+        // this.handleCreateGroup = this.handleCreateGroup.bind(this);
     }
 
     async handleLogout(){
@@ -16,6 +18,10 @@ export class Nav extends Component {
         //TODO refactor with history.push
         window.location.replace('/');
     }
+
+    // handleCreateGroup() {
+        
+    // }
 
 
     render() {
@@ -28,7 +34,9 @@ export class Nav extends Component {
                         <NavItem href='/users/login'>Login</NavItem>
                     ) : (
                         <div>
-                            <NavItem href='/groups/create'>Create Group</NavItem>
+                            <li>
+                                <Link to='/groups/create'>Create Group</Link>
+                            </li>
                             <NavItem onClick={this.handleLogout}>Logout</NavItem>
                         </div>
                     )}
