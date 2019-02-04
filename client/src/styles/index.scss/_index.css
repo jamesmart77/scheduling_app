@@ -82,3 +82,7 @@ nav {
 .swal2-modal .swal2-content ul:not(.browser-default) > li {
   list-style-type: disc;
   margin: .5rem 3rem; }
+
+.group-creation-container .add-invite-btn {
+  background-color: #64908A;
+  margin: 1.25rem .5rem 0 0; }

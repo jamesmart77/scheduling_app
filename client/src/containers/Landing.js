@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, Card, Col, Row, Button } from 'react-materialize';
+import { Container, Col, Row, Button } from 'react-materialize';
 
 export class Landing extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div className='landing-container'>

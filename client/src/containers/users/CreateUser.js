@@ -127,8 +127,9 @@ export class CreateUser extends Component {
                         <h5 className='header center'>Welcome to Sched-Aroo!</h5>
                         <div className='header-subtext'>
                             <p>
-                                Please provide the following to create your account. Your informtion is safe - we'll
-                                just use it to create an awesome experience!
+                                Please provide the following to create your account. These details will be used
+                                by others to search and add you to groups. Your informtion is safe - we'll
+                                just use it to create an awesome experience! 
                             </p>
                         </div>
                         <Row l={4} m={6} s={10}>

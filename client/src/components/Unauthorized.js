@@ -8,10 +8,11 @@ export class Unauthorized extends Component {
                 <Row>
                     <h3 className='center'>Unauthorized</h3>
                     <p className='center'>
-                        Ummm this is awkward, but we do not know who you are...Sorry for the 
-                        inconvenience but please log in before continuing.
+                        Sorry for the inconvenience, but please log in before continuing.
                     </p>
-                        <Button classeName='primary-button' href='/users/login'>Log In</Button>
+                        <Button className='primary-button' 
+                                node='a'
+                                href='/users/login'>Log In</Button>
                 </Row>
             </Container> 
         )

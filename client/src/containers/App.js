@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import Landing from './Landing'
-import Login from './users/Login'
+import Landing from './Landing';
+import Login from './users/Login';
+import CreateGroup from './groups/CreateGroup';
 import { Row } from 'react-materialize';
 import Nav from './Nav';
 import CreateUser from './users/CreateUser';
@@ -25,7 +26,7 @@ export class App extends Component {
 
   render() {
     const { isServerError } = this.props;
-    console.log("isServerError: ", isServerError);
+  
     return (
       <BrowserRouter>
         <div className="App">
@@ -43,6 +44,8 @@ export class App extends Component {
               <Route exact path='/users' component={User}/>
               <Route path='/users/login' component={Login}/>
               <Route path='/users/create' component={CreateUser}/>
+              {/* <Route exact path='/groups' component={CreateUser}/> */}
+              <Route path='/groups/create' component={CreateGroup}/>
             </Switch>
           </Row>
         </div>

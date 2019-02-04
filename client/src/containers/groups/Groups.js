@@ -21,7 +21,7 @@ export class Home extends Component {
     }
 
     render() {
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated, loginUnauthorized } = this.props;
         if (this.state.isLoading){
             return <LoadingSpinner/>
         }
@@ -53,7 +53,8 @@ function mapDispatchToProps(dispatch){
 
 Home.propTypes = {
     currentUser: PropTypes.object,
-    isAuthenticated: PropTypes.bool
+    isAuthenticated: PropTypes.bool,
+    loginUnauthorized: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
