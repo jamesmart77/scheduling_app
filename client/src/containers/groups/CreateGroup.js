@@ -14,7 +14,7 @@ export class CreateGroup extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleReset = this.handleReset.bind(this);
-        this.handleCreateUser = this.handleCreateUser.bind(this);
+        this.handleCreateGroup = this.handleCreateGroup.bind(this);
         this.handleAddInvite = this.handleAddInvite.bind(this);
         this.handleRemoveInvite = this.handleRemoveInvite.bind(this);
         this.initialPageLoad = this.initialPageLoad.bind(this);
@@ -33,7 +33,6 @@ export class CreateGroup extends Component {
 
     async initialPageLoad(){
         await this.props.userActions.userValidation();
-        //TODO add getCurrentUserInfo method if it's not present -- mimick userValidation but return payload
         this.setState({ isLoading: false })
     }
 
@@ -62,31 +61,22 @@ export class CreateGroup extends Component {
         this.setState({ invites: updatedInvites });
     }
 
-    async handleCreateUser() {
-        // const { firstName, lastName, email, password, passwordConfirm} = this.state;
-        // if( firstName === '' ||
-        //     lastName === '' ||
-        //     email === '' ||
-        //     password === '' ||
-        //     passwordConfirm=== '' ||
-        //     !EmailValidator.validate(email) ||
-        //     !this.props.isEmailAvailable ||
-        //     (password !== passwordConfirm)) {
-        //         this.setState({ showModal: true });
-        // } else {
-        //     const newUser = {
-        //         email: email,
-        //         firstName: firstName,
-        //         lastName: lastName,
-        //         password: password
-        //     }
-        //     try {
-        //         this.setState({ isLoading: true });
-        //         await this.props.userActions.createUser(newUser);
-        //     } catch {
-        //         this.setState({ isLoading: false });
-        //     }
-        // }
+    async handleCreateGroup() {
+        const { name } = this.state;
+        if( name === '' ) {
+                this.setState({ showModal: true });
+        } else {
+            const newGroup = {
+                name: name,
+                invites: this.state.invites
+            }
+            try {
+                this.setState({ isLoading: true });
+                // await this.props.userActions.createUser(newUser);
+            } catch {
+                this.setState({ isLoading: false });
+            }
+        }
     }
 
     render() {
@@ -102,6 +92,13 @@ export class CreateGroup extends Component {
                 return (
                     <div className='group-creation-container'>
                         <Container>
+                            <SweetAlert 
+                                show={this.state.show}
+                                title="Whoops!"
+                                type='error'
+                                text='A group name is required. Please add one before proceeding.'
+                                onConfirm={() => this.setState({ showModal: false })}
+                            />
                             <h5 className='header center'>Let's Make A New Group</h5>
                             <div className='header-subtext'>
                                 <p>
@@ -151,7 +148,7 @@ export class CreateGroup extends Component {
                             </Row>
                             <Row>
                                 <Col s={8} offset='s2'>
-                                    <Button className='primary-button' onClick={this.handleCreateUser}>Create Account</Button>
+                                    <Button className='primary-button' onClick={this.handleCreateGroup}>Create Group</Button>
                                 </Col>
                             </Row>
                         </Container>
