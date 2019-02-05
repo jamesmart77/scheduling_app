@@ -31,5 +31,19 @@ module.exports = (sequelize, DataTypes) => {
     }); 
   };
 
+  Group.associate = (models) => {
+    Group.hasMany(models.Invite, {
+      foreignKey: 'groupId'
+    });
+  };
+
+  Group.associate = (models) => {
+    Group.belongsToMany(models.User, {
+      through: 'groups_admins',
+      as: 'groupAdmins',
+      foreignKey: 'groupId'
+    });
+  };
+
   return Group; 
 };

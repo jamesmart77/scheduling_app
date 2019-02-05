@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     }
-  }, {});
+  }, {}); 
 
   User.beforeCreate((user, options) => {
     return bcrypt
@@ -73,6 +73,27 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Schedule, {
       foreignKey: 'userId',
       as: 'scheduledDates',
+    });
+  };
+
+  User.associate = (models) => {
+    User.hasMany(models.Invite, {
+      foreignKey: 'inviterId'
+    });
+  };
+
+  User.associate = (models) => {
+    User.hasMany(models.Invite, {
+      foreignKey: 'inviteeId'
+    });
+  };
+
+  // many-to-many with join included
+  User.associate = (models) => {
+    User.belongsToMany(models.Group, {
+      through: 'groups_admins',
+      as: 'groupAdmins',
+      foreignKey: 'userId'
     });
   };
 
