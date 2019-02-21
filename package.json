@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "server.js",
+  "engines": {
+    "npm": "6.4.0",
+    "node": "10.8.0"
+  },
   "scripts": {
     "client": "cd client && yarn start",
     "server": "nodemon server.js",

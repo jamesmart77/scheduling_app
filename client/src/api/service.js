@@ -24,6 +24,7 @@ const DELETE_Config = {
     body: ''
 };
 
+//USER
 export const loginCurrentUser = async(credentials) => {
     POST_Config.body = JSON.stringify(credentials);
     const response = await fetch('/api/users/login', POST_Config);
@@ -50,6 +51,13 @@ export const emailAddressValidation = async(address) => {
 export const userValidation = async() => {
     const response = await fetch('/api/users/validation', GET_Config);
     return responseHandler(response, 'userValidation');
+};
+
+//GROUP
+export const createGroup = async(newGroup) => {
+    POST_Config.body = JSON.stringify(newGroup);
+    const response = await fetch('/api/groups', POST_Config);
+    return responseHandler(response, 'createGroup');
 };
 
 const responseHandler = async(response, funcName) => {

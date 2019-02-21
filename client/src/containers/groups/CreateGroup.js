@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Input, Button, Container, Icon, Chip, Col } from 'react-materialize';
 import * as userActions from '../../store/user/actions';
+import * as groupActions from '../../store/group/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import SweetAlert from 'sweetalert2-react';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -72,7 +73,7 @@ export class CreateGroup extends Component {
             }
             try {
                 this.setState({ isLoading: true });
-                // await this.props.userActions.createUser(newUser);
+                await this.props.groupActions.createGroup(newGroup);
             } catch {
                 this.setState({ isLoading: false });
             }
@@ -171,6 +172,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch){
     return {
         userActions: bindActionCreators(userActions, dispatch),
+        groupActions: bindActionCreators(groupActions, dispatch),
         responseHandlerActions: bindActionCreators(responseHandlerActions, dispatch),
     }
 }
