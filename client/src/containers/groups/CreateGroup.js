@@ -68,6 +68,7 @@ export class CreateGroup extends Component {
                 this.setState({ showModal: true });
         } else {
             const newGroup = {
+                ownerId: this.props.currentUser.id,
                 name: name,
                 invites: this.state.invites
             }

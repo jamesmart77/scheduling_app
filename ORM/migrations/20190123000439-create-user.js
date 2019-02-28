@@ -14,9 +14,6 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING
       },
-      isAdmin: {
-        type: Sequelize.BOOLEAN
-      },
       email: {
         type: Sequelize.STRING
       },

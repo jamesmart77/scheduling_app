@@ -5,24 +5,18 @@ const jwt = require('./jwt');
 module.exports = {
   async create(req, res) {
     try {
-        let user = await User.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            password: req.body.password,
-            isAdmin: false
-        });
+        let user = await User.create(req.body);
 
-        //don't send password back to frontend
-        delete user.password;
+        delete user.dataValues.password;
         
         const token = await jwt.sign(user.email);
 
         //store the JWT in the client's browser
         res.cookie('schedAroo_jwt', token);
-        res.status(201).send(user);
+        res.status(201).send(user.toJSON());
     }
     catch (error) {
+        console.error("ERROR: ", error)
         res.status(500).send(error)
     };
   },
@@ -41,6 +35,7 @@ module.exports = {
             //store the JWT in the client's browser
             res.cookie('schedAroo_jwt', token);
             res.status(200).send({
+                id: retrievedUser.id,
                 email: retrievedUser.email,
                 firstName: retrievedUser.firstName,
                 lastName: retrievedUser.lastName,

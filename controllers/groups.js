@@ -1,21 +1,33 @@
 const Group = require('../ORM/models').Group;
+const User = require('../ORM/models').User;
 const validation = require('./validation');
 
 module.exports = {
   async create(req, res) {
     try {
-        await validation.check(req, res);
-        let group = await Group.create({
-            name: req.body.name
-        });
+        await validation.check;
         
-        const token = await jwt.sign(user.email);
+        await Group.create({
+            name: req.body.name,
+            ownerId: req.body.ownerId
+        });
 
-        //store the JWT in the client's browser
-        res.cookie('schedAroo_jwt', token);
-        res.status(201).send(user);
+        let userGroups = await Group.findAll(
+            {
+                where: {ownerId: req.body.ownerId},
+                attributes: ['id', 'name'],
+                include: [{
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'email']
+                }]
+            }
+        );
+
+        console.log("USER GROUPS: ", userGroups)
+        res.status(201).send({ groups: userGroups });
     }
     catch (error) {
+        console.error("Group creation server error: ", error);
         res.status(500).send(error)
     };
   }

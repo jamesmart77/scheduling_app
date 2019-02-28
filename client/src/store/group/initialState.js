@@ -3,27 +3,14 @@ import Immutable from 'seamless-immutable';
 export default Immutable({
     groups: [
         {
-            id: '',
+            id: 0,
             name: '',
-            owner: {
+            User: {
+                id: 0,
                 email: '',
                 firstName: '',
                 lastName: ''
-            },
-            admins: [
-                {
-                    email: '',
-                    firstName: '',
-                    lastName: ''
-                }
-            ],
-            members: [
-                {
-                    email: '',
-                    firstName: '',
-                    lastName: ''
-                }
-            ]
+            }
         }
     ]
 })
