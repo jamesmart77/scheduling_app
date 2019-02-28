@@ -15,7 +15,6 @@
     "react-spinners": "^0.5.1",
     "react-tooltip": "^3.9.2",
     "redux": "^4.0.1",
-    "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "seamless-immutable": "^7.1.4",
     "sweetalert2-react": "^0.7.2"
