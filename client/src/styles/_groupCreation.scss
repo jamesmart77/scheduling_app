@@ -5,4 +5,33 @@
         background-color: $primaryTeal;
         margin: 1.25rem .5rem 0 0;
     }
+
+    .group-invite-list{
+        .user-pill {
+            border: 2px solid $primaryYellow;
+
+            &-text {
+                color: $primarySlate;
+                margin-top: -0.1rem;
+            }
+            
+            &-close-btn {
+                cursor: pointer;
+                margin-top: .15rem;
+                -webkit-transition-duration: .5s;
+                /* Safari 4.0 - 8.0 */
+                transition-duration: .5s;
+
+                &:hover {
+                    color: $primarySalmon;
+                    -ms-transform: rotate(180deg); /* IE 9 */
+                    transform: rotate(180deg);
+                    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+                    -webkit-transition-duration: .5s;
+                    /* Safari 4.0 - 8.0 */
+                    transition-duration: .5s;
+                }
+            }
+        }
+    }
 }

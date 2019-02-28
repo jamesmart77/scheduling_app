@@ -86,3 +86,25 @@ nav {
 .group-creation-container .add-invite-btn {
   background-color: #64908A;
   margin: 1.25rem .5rem 0 0; }
+
+.group-creation-container .group-invite-list .user-pill {
+  border: 2px solid #FFFFCC; }
+  .group-creation-container .group-invite-list .user-pill-text {
+    color: #424254;
+    margin-top: -0.1rem; }
+  .group-creation-container .group-invite-list .user-pill-close-btn {
+    cursor: pointer;
+    margin-top: .15rem;
+    -webkit-transition-duration: .5s;
+    /* Safari 4.0 - 8.0 */
+    transition-duration: .5s; }
+    .group-creation-container .group-invite-list .user-pill-close-btn:hover {
+      color: #CC2A41;
+      -ms-transform: rotate(180deg);
+      /* IE 9 */
+      transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      /* Chrome, Safari, Opera */
+      -webkit-transition-duration: .5s;
+      /* Safari 4.0 - 8.0 */
+      transition-duration: .5s; }

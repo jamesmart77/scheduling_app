@@ -22,7 +22,7 @@ export class Landing extends Component {
                                                 lifting for you!
                                             </p>
                                             <p>
-                                                With our dynamic algorithems that consider volunteer unavailability dates, 
+                                                With our dynamic algorithms that consider volunteer unavailability dates, 
                                                 service area preferences, and provide an elegant user experience, scheduling 
                                                 recurring group events will turn to ease.
                                             </p>
