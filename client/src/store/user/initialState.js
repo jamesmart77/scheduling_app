@@ -5,7 +5,7 @@ export default Immutable({
         id: 0,
         firstName: '',
         lastName: '',
-        email: '',
-        isAdmin: false
-    }
+        email: ''
+    },
+    initialLoad: true
 })

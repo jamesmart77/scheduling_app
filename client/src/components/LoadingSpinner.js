@@ -1,26 +1,17 @@
 import React, { Component } from "react";
-import { css } from '@emotion/core';
-import { SyncLoader } from 'react-spinners';
 import PropTypes from 'prop-types';
-
-const override = css`
-    display: block;
-    margin: 0 25%;
-    position: fixed;
-    top: 50%;
-`;
+import { Row, Col, Preloader } from 'react-materialize';
 
 export class LoadingSpinner extends Component {
 
     render(){
         return(
-            <div className='sweet-loading'>
-                <SyncLoader
-                    css={override}
-                    sizeUnit={"px"}
-                    size={50}
-                    color={'#64908A'}
-                />
+            <div className='loading-container'>
+                <Row>
+                    <Col s={12}>
+                        <Preloader className='loading-spinner' flashing/>
+                    </Col>
+                </Row>
             </div> 
         )
     }

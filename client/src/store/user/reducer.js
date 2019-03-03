@@ -2,10 +2,10 @@ import * as types from './actionTypes';
 import initialState from './initialState';
 
 const resetUser = {
+    id: 0,
     firstName: '',
     lastName: '',
-    email: '',
-    isAdmin: false
+    email: ''
 };
 
 export function currentUser(state = initialState.currentUser, action = {}) {
@@ -16,5 +16,14 @@ export function currentUser(state = initialState.currentUser, action = {}) {
             return state.merge(resetUser);
         default:
             return state;
+    }
+}
+
+export function initialLoad(state = initialState.initialLoad, action = {}) {
+    switch (action.type) {
+        case types.LOAD_COMPLETE:
+            return false;
+        default:
+            return true;
     }
 }

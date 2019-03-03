@@ -16,6 +16,12 @@ module.exports = {
         }
     },
     decode: (token) => {
-        return
+        try {
+            //return decoded
+            return jwt.verify(token, secret);
+        } catch(error) {
+            console.error("JWT verify error: ", error);
+            throw new Error(error);
+        }
     },
 }

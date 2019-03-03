@@ -21,6 +21,23 @@ module.exports = {
     };
   },
 
+  async loadData(req, res) {
+    try {
+        let decoded = await jwt.decode(req.cookies.schedAroo_jwt);
+        let currentUser = await User.findOne({
+            where: {email: decoded.email}
+        }, {
+          attributes: ['id', 'firstName', 'lastName', 'email']
+        });
+
+        res.status(201).send(currentUser);
+    }
+    catch (error) {
+        console.error("LOAD Data ERROR: ", error);
+        res.status(401).send(error)
+    };
+  },
+
   async userLogin(req, res) {
     try {
         const retrievedUser = await User.findOne({
@@ -38,8 +55,7 @@ module.exports = {
                 id: retrievedUser.id,
                 email: retrievedUser.email,
                 firstName: retrievedUser.firstName,
-                lastName: retrievedUser.lastName,
-                isAdmin: retrievedUser.isAdmin
+                lastName: retrievedUser.lastName
             });            
         }
         else{

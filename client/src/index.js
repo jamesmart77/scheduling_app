@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import App from './containers/App';
 import configureStore from './store/configureStore';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import '../src/styles/index.scss/_index.css';
+import { loadUser } from './store/user/actions';
 
 const store = configureStore();
+store.dispatch(loadUser());
 
 ReactDOM.render(
     <Provider store={store}>

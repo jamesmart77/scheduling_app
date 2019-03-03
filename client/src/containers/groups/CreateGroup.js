@@ -24,7 +24,8 @@ export class CreateGroup extends Component {
             email: '',
             invites: [],
             showModal: false,
-            isLoading: true
+            isLoading: true,
+            createSuccess: false
         }
     }
 
@@ -75,6 +76,10 @@ export class CreateGroup extends Component {
             try {
                 this.setState({ isLoading: true });
                 await this.props.groupActions.createGroup(newGroup);
+                this.setState({ 
+                    isLoading: false,
+                    createSuccess: true 
+                });
             } catch {
                 this.setState({ isLoading: false });
             }
@@ -100,6 +105,12 @@ export class CreateGroup extends Component {
                                 type='error'
                                 text='A group name is required. Please add one before proceeding.'
                                 onConfirm={() => this.setState({ showModal: false })}
+                            />
+                            <SweetAlert 
+                                show={this.state.createSuccess}
+                                title="Success"
+                                type='success'
+                                onConfirm={() => this.props.history.push("/users")}
                             />
                             <h5 className='header center'>Let's Make A New Group</h5>
                             <div className='header-subtext'>

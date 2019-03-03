@@ -12,6 +12,7 @@ import CreateUser from './users/CreateUser';
 import User from './users/User';
 import SweetAlert from 'sweetalert2-react';
 import * as responseHandlerActions from '../store/responseHandler/actions';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export class App extends Component {
 
@@ -25,13 +26,14 @@ export class App extends Component {
   }
 
   render() {
-    const { isServerError } = this.props;
-  
+    const { isServerError, initialLoad, currentUser } = this.props;
+    console.log("InitialLoad: ", initialLoad);
     return (
       <BrowserRouter>
         <div className="App">
           <Row className='app-container'>
             <Nav/>
+            { initialLoad && !currentUser.firstName && <LoadingSpinner /> }
             <SweetAlert
               show={isServerError}
               type='error'
@@ -62,6 +64,7 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
+    initialLoad: state.initialLoad,
     isServerError: state.isServerError
   }
 }

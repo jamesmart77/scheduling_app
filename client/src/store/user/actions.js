@@ -2,6 +2,24 @@ import * as userActionTypes from './actionTypes';
 import * as responseHandlerActionTypes from '../responseHandler/actionTypes';
 import * as responseHandlerActions from '../responseHandler/actions';
 import * as api from '../../api/service';
+import cookieGetter from 'cookie-getter';
+
+export function loadUser() {
+    return async(dispatch) => {
+        try {
+            const cookie = cookieGetter('schedAroo_jwt');
+            if(cookie){
+                const currentUser = await api.loadUser();
+                dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
+            }
+            
+            dispatch({ type: userActionTypes.LOAD_COMPLETE});
+        } catch (error) {
+            console.error("Loading error: ", error);
+            dispatch(responseHandlerActions.errorHandler(error));
+        }
+    }
+}
 
 export function loginCurrentUser(email, password) {
     return async(dispatch) => {
