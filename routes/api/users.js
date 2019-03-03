@@ -31,10 +31,13 @@ router.get('/logout', (req, res) => {
     }
 });
 
+router.get('/loadData', usersController.loadData);
+
 router.post('/login', usersController.userLogin);
 
 router.post('/available', usersController.isEmailAvailable);
 
 router.post('/', usersController.create);
+
 
 module.exports = router;

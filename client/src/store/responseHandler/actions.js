@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import * as userActionTypes from '../user/actionTypes';
 
 export function errorHandler(error) {
     return async(dispatch) => {
@@ -12,8 +13,12 @@ export function errorHandler(error) {
                 console.log("INSIDE EMAIL ACTION")
                 dispatch({ type: types.EMAIL_ADDRESS_AVAILABLE});
             } else {
-                if(errorMessage.includes("HTTP status 500")){
-                    dispatch({ type: types.SERVER_ERROR});
+                if(errorMessage.includes("loadUser")) {
+                    dispatch({ type: userActionTypes.LOAD_COMPLETE});
+                } else {
+                    if(errorMessage.includes("HTTP status 500")){
+                        dispatch({ type: types.SERVER_ERROR});
+                    }
                 }
             }
         }

@@ -5,6 +5,8 @@ import { Container, Col, Row, Button } from 'react-materialize';
 
 export class Landing extends Component {
     render() {
+        const { currentUser } = this.props;
+
         return (
             <div className='landing-container'>
                 <Container>
@@ -30,20 +32,32 @@ export class Landing extends Component {
                                     </Col>
                                 </Row>
                                 <Row className='landing-actions-row'>
-                                    <Col m={6} s={12}>
-                                        <Button
-                                            className='primary-button login-button'
-                                            waves='light' 
-                                            node='a' 
-                                            href='/users/login'>Login</Button>
-                                    </Col>
-                                    <Col m={6} s={12}>
-                                        <Button
-                                            className='secondary-button right'
-                                            waves='light' 
-                                            node='a' 
-                                            href='/users/create'>Create New Account</Button>
-                                    </Col>
+                                    { currentUser.firstName ? (
+                                        <Col s={6} offset='s3'>
+                                            <Button
+                                                className='primary-button login-button'
+                                                waves='light' 
+                                                node='a' 
+                                                href='/users'>My Account</Button>
+                                        </Col>
+                                    ) : (
+                                        <div>
+                                            <Col m={6} s={12}>
+                                                <Button
+                                                    className='primary-button login-button'
+                                                    waves='light' 
+                                                    node='a' 
+                                                    href='/users/login'>Login</Button>
+                                            </Col>
+                                            <Col m={6} s={12}>
+                                                <Button
+                                                    className='secondary-button right'
+                                                    waves='light' 
+                                                    node='a' 
+                                                    href='/users/create'>Create New Account</Button>
+                                            </Col>
+                                        </div>
+                                    )}
                                 </Row>
                             </div>              
                         </Col>

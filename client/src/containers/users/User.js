@@ -6,6 +6,7 @@ import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import Unauthorized from '../../components/Unauthorized';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { Row, Col } from 'react-materialize';
 
 export class Home extends Component {
     constructor(props) {
@@ -16,12 +17,16 @@ export class Home extends Component {
     }
 
     componentWillMount(){
-        this.props.userActions.userValidation();
+        this.userValidation();
+    }
+
+    async userValidation() {
+        await this.props.userActions.userValidation();
         this.setState({ isLoading: false })
     }
 
     render() {
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated, currentUser } = this.props;
         if (this.state.isLoading){
             return <LoadingSpinner/>
         }
@@ -30,7 +35,12 @@ export class Home extends Component {
         } else {
             return (
                 <div className='user-container'>
-                    <h3>Welcome to the User Home page!</h3>
+                    <Row>
+                        <Col s={10} offset='s1'>
+                            <h3>Welcome back {currentUser.firstName}!</h3>
+
+                        </Col>
+                    </Row>
                 </div>
             )
         }

@@ -23,7 +23,6 @@ module.exports = {
             }
         );
 
-        console.log("USER GROUPS: ", userGroups)
         res.status(201).send({ groups: userGroups });
     }
     catch (error) {
