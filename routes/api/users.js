@@ -1,5 +1,5 @@
 const usersController = require('../../controllers').users;
-const validation = require('../../controllers').validation;
+const helpers = require('../../controllers').helpers;
 const router = require("express").Router();
 
 router.get('/', (req, res) => res.status(200).send({
@@ -8,8 +8,7 @@ router.get('/', (req, res) => res.status(200).send({
 
 router.get('/validation', async (req, res) => {
     try{
-        // let token = req.cookies.schedAroo_jwt;
-        await validation.check;
+        await helpers.validationCheck;
         res.status(200).send({message: 'JWT validated'});
     } catch (error) {
         console.error("Validation Error: ", error);

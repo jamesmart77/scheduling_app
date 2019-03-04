@@ -6,8 +6,9 @@ import * as api from '../../api/service';
 export function createGroup(newGroup) {
     return async(dispatch) => {
         try {
-            const groups = await api.createGroup(newGroup);
-            dispatch({ type: groupActionTypes.GROUPS, groups});
+            const ownedGroups = await api.createGroup(newGroup);
+            console.log("New Owned Groups: ", ownedGroups);
+            dispatch({ type: groupActionTypes.GROUPS, ownedGroups});
         } catch (error) {
             console.error("Error creating group: ", error);
             dispatch(responseHandlerActions.errorHandler(error));

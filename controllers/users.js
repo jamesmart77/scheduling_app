@@ -1,6 +1,7 @@
 const User = require('../ORM/models').User;
 const bcrypt = require('bcrypt');
 const jwt = require('./jwt');
+const helpers = require('./helpers');
 
 module.exports = {
   async create(req, res) {
@@ -9,11 +10,11 @@ module.exports = {
 
         delete user.dataValues.password;
         
-        const token = await jwt.sign(user.email);
+        const token = await jwt.sign(user.email, user.id);
 
         //store the JWT in the client's browser
         res.cookie('schedAroo_jwt', token);
-        res.status(201).send(user.toJSON());
+        res.status(201).send(user);
     }
     catch (error) {
         console.error("ERROR: ", error)
@@ -24,11 +25,7 @@ module.exports = {
   async loadData(req, res) {
     try {
         let decoded = await jwt.decode(req.cookies.schedAroo_jwt);
-        let currentUser = await User.findOne({
-            where: {email: decoded.email}
-        }, {
-          attributes: ['id', 'firstName', 'lastName', 'email']
-        });
+        let currentUser = await helpers.findUserInfo(decoded.userId);
 
         res.status(201).send(currentUser);
     }
@@ -47,16 +44,12 @@ module.exports = {
         if(bcrypt.compareSync(req.body.password, retrievedUser.password) ||
             retrievedUser === null){
 
-            const token = await jwt.sign(retrievedUser.email);
-
+            const token = await jwt.sign(retrievedUser.email, retrievedUser.id);
+            
+            delete retrievedUser.dataValues.password;
             //store the JWT in the client's browser
             res.cookie('schedAroo_jwt', token);
-            res.status(200).send({
-                id: retrievedUser.id,
-                email: retrievedUser.email,
-                firstName: retrievedUser.firstName,
-                lastName: retrievedUser.lastName
-            });            
+            res.status(200).send(retrievedUser);            
         }
         else{
             res.status(401).send({

@@ -24,6 +24,6 @@ export function initialLoad(state = initialState.initialLoad, action = {}) {
         case types.LOAD_COMPLETE:
             return false;
         default:
-            return true;
+            return state;
     }
 }

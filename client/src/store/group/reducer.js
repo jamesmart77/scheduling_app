@@ -1,10 +1,10 @@
 import * as types from './actionTypes';
 import initialState from './initialState';
 
-export function groups(state = initialState.groups, action = {}) {
+export function ownedGroups(state = initialState.ownedGroups, action = {}) {
     switch (action.type) {
         case types.GROUPS:
-            return action.groups;
+            return action.ownedGroups;
         default:
             return state;
     }
