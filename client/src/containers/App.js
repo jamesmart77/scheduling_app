@@ -27,7 +27,7 @@ export class App extends Component {
 
   render() {
     const { isServerError, initialLoad, currentUser } = this.props;
-    console.log("InitialLoad: ", initialLoad);
+    
     return (
       <BrowserRouter>
         <div className="App">

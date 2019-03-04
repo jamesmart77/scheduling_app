@@ -1,16 +1,11 @@
 import Immutable from 'seamless-immutable';
 
 export default Immutable({
-    groups: [
+    ownedGroups: [
         {
             id: 0,
-            name: '',
-            User: {
-                id: 0,
-                email: '',
-                firstName: '',
-                lastName: ''
-            }
+            name: ''
         }
-    ]
+    ],
+    memberGroups: []
 })

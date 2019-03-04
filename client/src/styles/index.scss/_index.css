@@ -89,6 +89,9 @@ nav {
       .side-nav .nav-options-btn i {
         color: black; } }
 
+.user-container .header {
+  margin: 3rem 0 2rem 0; }
+
 .user-creation-container .header {
   margin-top: 2rem; }
 

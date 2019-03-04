@@ -6,7 +6,7 @@ import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import Unauthorized from '../../components/Unauthorized';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { Row, Col } from 'react-materialize';
+import { Container, Row, Col, Card } from 'react-materialize';
 
 export class Home extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ export class Home extends Component {
     }
 
     render() {
-        const { isAuthenticated, currentUser } = this.props;
+        const { isAuthenticated, currentUser, ownedGroups } = this.props;
         if (this.state.isLoading){
             return <LoadingSpinner/>
         }
@@ -34,14 +34,32 @@ export class Home extends Component {
             return <Unauthorized/>
         } else {
             return (
-                <div className='user-container'>
+                <Container className='user-container'>
                     <Row>
-                        <Col s={10} offset='s1'>
-                            <h3>Welcome back {currentUser.firstName}!</h3>
+                        <Col s={12}>
+                            <h3 className='header'>Welcome back {currentUser.firstName}!</h3>
 
                         </Col>
+                        <Row>
+                            {ownedGroups && 
+                            ownedGroups.length > 0 &&
+                            ownedGroups[0].id !== 0 && 
+                            ownedGroups.map(group => {
+                                return (
+                                    <div key={group.id}>
+                                        <Col m={4} s={10} offset='s1'>
+                                            <Card className='blue-grey darken-1' 
+                                                    textClassName='white-text' 
+                                                    title={group.name} 
+                                                    actions={[<a href='#'>View</a>]}>
+                                            </Card>
+                                        </Col>
+                                    </div>
+                                )
+                            })}
+                        </Row>
                     </Row>
-                </div>
+                </Container>
             )
         }
     }
@@ -50,6 +68,7 @@ export class Home extends Component {
 function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
+        ownedGroups: state.ownedGroups,
         isAuthenticated: state.isAuthenticated
     }
 }
@@ -62,6 +81,7 @@ function mapDispatchToProps(dispatch){
 }
 
 Home.propTypes = {
+    ownedGroups: PropTypes.object,
     currentUser: PropTypes.object,
     isAuthenticated: PropTypes.bool
 };

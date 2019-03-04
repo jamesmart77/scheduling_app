@@ -1,4 +1,5 @@
 import * as userActionTypes from './actionTypes';
+import * as groupActionTypes from '../group/actionTypes';
 import * as responseHandlerActionTypes from '../responseHandler/actionTypes';
 import * as responseHandlerActions from '../responseHandler/actions';
 import * as api from '../../api/service';
@@ -10,7 +11,12 @@ export function loadUser() {
             const cookie = cookieGetter('schedAroo_jwt');
             if(cookie){
                 const currentUser = await api.loadUser();
+                
                 dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
+                if(currentUser.ownedGroups){
+                    const ownedGroups = currentUser.ownedGroups;
+                    dispatch({ type: groupActionTypes.GROUPS, ownedGroups});
+                }
             }
             
             dispatch({ type: userActionTypes.LOAD_COMPLETE});
