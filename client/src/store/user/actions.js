@@ -36,6 +36,10 @@ export function loginCurrentUser(email, password) {
             };
             const currentUser = await api.loginCurrentUser(credentials);
             dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
+            if(currentUser.ownedGroups){
+                const ownedGroups = currentUser.ownedGroups;
+                dispatch({ type: groupActionTypes.GROUPS, ownedGroups});
+            }
         } catch (error) {
             console.error("Error logging in current user: ", error);
             dispatch(responseHandlerActions.errorHandler(error));

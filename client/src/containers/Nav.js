@@ -29,9 +29,9 @@ export class Nav extends Component {
                     ) : (
                         <div>
                             <li>Welcome, {currentUser.firstName}</li>
-                            <Dropdown trigger={
+                            <Dropdown className='nav-options-large' trigger={
                                 <Button s={12} 
-                                        className='nav-options-btn'
+                                        className='nav-options-large-btn'
                                         tooltip='Menu Options'
                                         >
                                     <Icon right>
@@ -39,7 +39,7 @@ export class Nav extends Component {
                                     </Icon>
                                 </Button>
                             }>
-                                <div className='center'>
+                                <div>
                                     <li>
                                         <Link to='/users'>My Account</Link>
                                     </li>
@@ -50,6 +50,16 @@ export class Nav extends Component {
                                     <NavItem onClick={this.handleLogout}><Icon>exit_to_app</Icon></NavItem>
                                 </div>
                             </Dropdown>
+                            <div className='nav-options-med-to-small'>
+                                    <li>
+                                        <Link to='/users'>My Account</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/groups/create'>Create Group</Link>
+                                    </li>
+                                    <NavItem divider />
+                                    <NavItem onClick={this.handleLogout}>Logout<Icon right>exit_to_app</Icon></NavItem>
+                                </div>
                         </div>
                     )}
                 </Navbar>

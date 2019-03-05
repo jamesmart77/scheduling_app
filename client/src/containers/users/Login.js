@@ -66,6 +66,7 @@ export class Login extends Component {
 
     render() {
         const { loginUnauthorized } = this.props;
+        console.log("Login Authorization: ", loginUnauthorized);
         
         return (
             <div className='login-container'>

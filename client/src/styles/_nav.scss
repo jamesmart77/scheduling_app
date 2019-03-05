@@ -3,29 +3,35 @@
 nav {
     background-color: $primarySalmon !important;
 
-    .nav-options-btn {
-        background: transparent;
-        box-shadow: none;
-        -webkit-box-shadow: none;
-
-        transition-duration: 0.5s;
-
-        i {
-            line-height: 2.2rem;
-        }
-
-        &:hover {
+    .nav-options-large {
+        &-btn {
             background: transparent;
             box-shadow: none;
             -webkit-box-shadow: none;
 
             transition-duration: 0.5s;
-            
+
             i {
-                color: $primaryTeal;
-                font-size: 2rem;
+                line-height: 2.2rem;
+            }
+
+            &:hover {
+                background: transparent;
+                box-shadow: none;
+                -webkit-box-shadow: none;
+
+                transition-duration: 0.5s;
+                
+                i {
+                    color: $primaryTeal;
+                    font-size: 2rem;
+                }
             }
         }
+    }
+
+    .nav-options-med-to-small {
+        display: none;
     }
 }
 
@@ -34,12 +40,15 @@ nav {
         color: black;
         padding: 1rem 2rem !important;
 
-        .nav-options-btn {
-            color: black;
+        .nav-options-large {
+            display: none;
 
-            i {
-                color: black;
+            &-btn {
+                display: none;
             }
+        }
+        .nav-options-med-to-small {
+            display: block;
         }
     }
 }
