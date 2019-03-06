@@ -6,13 +6,28 @@ router.get('/', (req, res) => res.status(200).send({
     message: 'Welcome to the Users API!',
 }));
 
-router.get('/validation', async (req, res) => {
+router.get('/authenticate', async (req, res) => {
     try{
-        await helpers.validationCheck;
-        res.status(200).send({message: 'JWT validated'});
+        let response = await helpers.authenticationCheck(req);
+        res.status(200).send({message: response});
     } catch (error) {
-        console.error("Validation Error: ", error);
-        res.status(500).send({message: error});
+        console.error("ERROR: ", error);
+        res.status(401).send(error);
+    }
+});
+
+router.get('/authorization/groups/:groupId', async (req, res) => {
+    try{
+        let response = await helpers.authorizationCheck(req);
+
+        if(response === 'Unauthorized'){
+            res.status(403).send({ message: response});
+        } else {
+            res.status(200).send({message: response});
+        }
+    } catch (error) {
+        console.error("ERROR: ", error);
+        res.status(500).send(error);
     }
 });
 

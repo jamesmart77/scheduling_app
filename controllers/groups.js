@@ -5,7 +5,7 @@ const helpers = require('./helpers');
 module.exports = {
   async create(req, res) {
     try {
-        await helpers.validationCheck;
+        await helpers.authenticationCheck(req);
         
         await Group.create({
             name: req.body.name,

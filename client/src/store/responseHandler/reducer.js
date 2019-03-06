@@ -23,6 +23,16 @@ export function isAuthenticated(state = initialState.isAuthenticated, action = {
     }
 }
 
+export function unauthorized(state = initialState.unauthorized, action = {}) {
+    switch (action.type) {
+        case types.UNAUTHORIZED:
+            return true;
+        case types.RESET:
+            return false;
+        default:
+            return state;
+    }
+}
 export function isEmailAvailable(state = initialState.isEmailAvailable, action = {}) {
     switch (action.type) {
         case types.EMAIL_ADDRESS_AVAILABLE:

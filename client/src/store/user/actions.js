@@ -36,6 +36,10 @@ export function loginCurrentUser(email, password) {
             };
             const currentUser = await api.loginCurrentUser(credentials);
             dispatch({ type: userActionTypes.CURRENT_USER_LOGIN, currentUser});
+            if(currentUser.ownedGroups){
+                const ownedGroups = currentUser.ownedGroups;
+                dispatch({ type: groupActionTypes.GROUPS, ownedGroups});
+            }
         } catch (error) {
             console.error("Error logging in current user: ", error);
             dispatch(responseHandlerActions.errorHandler(error));
@@ -56,14 +60,26 @@ export function logoutCurrentUser() {
     }
 }
 
-export function userValidation() {
+export function userAuthentication() {
     return async(dispatch) => {
         try {
-            await api.userValidation();
+            await api.userAuthentication();
             dispatch({ type: responseHandlerActionTypes.USER_VALIDATION});
         } catch (error) {
-            console.error("User validation: ", error);
-            dispatch({ type: responseHandlerActionTypes.RESET});
+            console.error("User authentication: ", error);
+            dispatch(responseHandlerActions.errorHandler(error));
+        }
+    }
+}
+
+export function userAuthorization(groupId) {
+    return async(dispatch) => {
+        try {
+            await api.userAuthorization(groupId);
+            dispatch({ type: responseHandlerActionTypes.USER_VALIDATION});
+        } catch (error) {
+            console.error("User authorization: ", error);
+            dispatch(responseHandlerActions.errorHandler(error));
         }
     }
 }

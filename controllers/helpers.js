@@ -3,14 +3,40 @@ const User = require('../ORM/models').User;
 const Group = require('../ORM/models').Group;
 
 module.exports = {
-    validationCheck: async (req, res) => {
+    authenticationCheck: async (req) => {
         try {
             let token = req.cookies.schedAroo_jwt;
             await jwt.verify(token);
-            return
+            return 'JWT authenticated';
         } catch (error) {
             console.error("JWT Validation error: ", error)
-            res.status(401).send({message: 'JWT is not valid'});
+            throw new Error(error);
+        }
+    },
+
+    authorizationCheck: async (req) => {
+        try {
+            let token = req.cookies.schedAroo_jwt;
+            const groupId = req.params.groupId;
+
+            let decoded  = await jwt.decode(token);
+            console.log("USER ID:", decoded.userId);
+            console.log("Group ID:", groupId);
+            let group = await Group.findOne({
+                where: {
+                    id: req.params.groupId,
+                    ownerId: decoded.userId
+                }
+            })
+            console.log("QUERIED GROUP: ", group);
+            if(!group){
+                return "Unauthorized"
+            } else {
+                return "Authorized"
+            }
+        } catch (error) {
+            console.error("Authorization error: ", error)
+            throw new Error(error);
         }
     },
 
@@ -21,8 +47,11 @@ module.exports = {
                     model: Group,
                     as: 'ownedGroups',
                     attributes: ['id', 'name'],
-                    where: {ownerId: userId}
+                    where: {ownerId: userId},
                 }],
+                order: [
+                    [{model: Group, as: 'ownedGroups'}, 'name', 'ASC'],
+                ],
                 attributes: {
                     exclude: ['password']
                 }
@@ -38,7 +67,6 @@ module.exports = {
                     }
                 });
             }
-            console.log("userGroup: ", userGroup);
             return userGroup;
         } catch (error) {
             console.log("findUserInfo error: ", error);

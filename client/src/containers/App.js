@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Landing from './Landing';
 import Login from './users/Login';
 import CreateGroup from './groups/CreateGroup';
+import Group from './groups/Group';
 import { Row } from 'react-materialize';
 import Nav from './Nav';
 import CreateUser from './users/CreateUser';
@@ -46,8 +47,8 @@ export class App extends Component {
               <Route exact path='/users' component={User}/>
               <Route path='/users/login' component={Login}/>
               <Route path='/users/create' component={CreateUser}/>
-              {/* <Route exact path='/groups' component={CreateUser}/> */}
-              <Route path='/groups/create' component={CreateGroup}/>
+              <Route exact path='/groups/create' component={CreateGroup}/>
+              <Route path='/groups/:groupId' component={Group}/>
             </Switch>
           </Row>
         </div>

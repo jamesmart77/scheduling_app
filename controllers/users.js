@@ -47,9 +47,11 @@ module.exports = {
             const token = await jwt.sign(retrievedUser.email, retrievedUser.id);
             
             delete retrievedUser.dataValues.password;
-            //store the JWT in the client's browser
+
+            const userInfo = await helpers.findUserInfo(retrievedUser.id);
+            
             res.cookie('schedAroo_jwt', token);
-            res.status(200).send(retrievedUser);            
+            res.status(200).send(userInfo);            
         }
         else{
             res.status(401).send({
@@ -58,7 +60,8 @@ module.exports = {
     }
     catch (error) {
         console.error("Error at user login. Error: ", error)
-        res.status(500).send(error)
+        res.status(401).send({
+            message: "Login credentials invalid"});
     };
   },
 

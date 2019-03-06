@@ -18,7 +18,6 @@ export class CreateGroup extends Component {
         this.handleCreateGroup = this.handleCreateGroup.bind(this);
         this.handleAddInvite = this.handleAddInvite.bind(this);
         this.handleRemoveInvite = this.handleRemoveInvite.bind(this);
-        this.initialPageLoad = this.initialPageLoad.bind(this);
         this.state = {
             name: '',
             email: '',
@@ -30,11 +29,11 @@ export class CreateGroup extends Component {
     }
 
     componentWillMount(){
-        this.initialPageLoad();
+        this.userValidation();
     }
 
-    async initialPageLoad(){
-        await this.props.userActions.userValidation();
+    async userValidation() {
+        await this.props.userActions.userAuthentication();
         this.setState({ isLoading: false })
     }
 
@@ -127,17 +126,19 @@ export class CreateGroup extends Component {
                                         value={this.state.name}
                                         onChange={this.handleChange}
                                     />
-                                    <Input s={10}
-                                        type="text" 
-                                        label="Invite Members"
-                                        name="email"
-                                        value={this.state.email}
-                                        onChange={this.handleChange}
-                                    />
-                                    <Button floating 
-                                            className='add-invite-btn right'
-                                            onClick={this.handleAddInvite} 
-                                            icon='add' />
+                                    <Row style={{display: 'none'}}>
+                                        <Input s={10}
+                                            type="text" 
+                                            label="Invite Members"
+                                            name="email"
+                                            value={this.state.email}
+                                            onChange={this.handleChange}
+                                        />
+                                        <Button floating 
+                                                className='add-invite-btn right'
+                                                onClick={this.handleAddInvite} 
+                                                icon='add' />
+                                    </Row>
                                 
                                 </Col>
                                 <Col s={12}>

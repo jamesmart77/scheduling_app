@@ -7,8 +7,9 @@ import * as responseHandlerActions from '../../store/responseHandler/actions';
 import Unauthorized from '../../components/Unauthorized';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { Container, Row, Col, Card } from 'react-materialize';
+import { Link } from 'react-router-dom';
 
-export class Home extends Component {
+export class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +22,7 @@ export class Home extends Component {
     }
 
     async userValidation() {
-        await this.props.userActions.userValidation();
+        await this.props.userActions.userAuthentication();
         this.setState({ isLoading: false })
     }
 
@@ -36,25 +37,28 @@ export class Home extends Component {
             return (
                 <Container className='user-container'>
                     <Row>
-                        <Col s={12}>
-                            <h3 className='header'>Welcome back {currentUser.firstName}!</h3>
-
-                        </Col>
                         <Row>
+                            <Col s={12}>
+                                <h3 className='header'>Welcome back {currentUser.firstName}!</h3>
+
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col s={12}>
+                                <h5 className='sub-header'>Groups You Own</h5>
+                            </Col>
                             {ownedGroups && 
                             ownedGroups.length > 0 &&
                             ownedGroups[0].id !== 0 && 
                             ownedGroups.map(group => {
                                 return (
-                                    <div key={group.id}>
-                                        <Col m={4} s={10} offset='s1'>
-                                            <Card className='blue-grey darken-1' 
-                                                    textClassName='white-text' 
-                                                    title={group.name} 
-                                                    actions={[<a href='#'>View</a>]}>
-                                            </Card>
-                                        </Col>
-                                    </div>
+                                    <Col m={4} s={10} offset='s1'>
+                                        <Card key={"group-" & group.id}
+                                                className='group-card' 
+                                                title={group.name} 
+                                                actions={[<Link to={`/groups/${group.id}`}>View</Link>]}>
+                                        </Card>
+                                    </Col>
                                 )
                             })}
                         </Row>
@@ -80,10 +84,10 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-Home.propTypes = {
-    ownedGroups: PropTypes.object,
+User.propTypes = {
+    ownedGroups: PropTypes.array,
     currentUser: PropTypes.object,
     isAuthenticated: PropTypes.bool
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(User);

@@ -1,7 +1,45 @@
 @import './appColors';
 
 .user-container {
-    .header{
+    .header, .sub-header{
         margin: 3rem 0 2rem 0;
-    }    
+    }  
+    
+    .group-card {
+        background-color: $primaryTeal;
+
+        .card-title {
+            color: $subTextGrey !important;
+            text-align: center;
+        }
+
+        .card-action {
+            text-align: center;
+            
+            a {
+                border: 1px solid $primarySalmon;
+                background-color: $secondarySalmon;
+                border-radius: 25px;
+                color: $white !important;
+                margin: 0 auto;
+                padding: 0.35rem 38%;
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .user-container {
+        .header{
+            font-size: 2rem;
+            margin-left: 1rem;
+            text-align: center;
+        } 
+        
+        .sub-header {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+    }
 }
