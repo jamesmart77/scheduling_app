@@ -8,6 +8,7 @@ import Unauthorized from '../../components/Unauthorized';
 import Unauthenticated from '../../components/Unauthenticated';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-materialize';
 
 export class Group extends Component {
     constructor(props) {
@@ -35,8 +36,12 @@ export class Group extends Component {
     }
 
     render() {
-        const { isAuthenticated, unauthorized } = this.props;
-        // console.log("PROPS: ", this.props);
+        const { isAuthenticated, unauthorized, ownedGroups, match: { params } } = this.props;
+        
+        //destructuring allows us to access first element of array from filter -- only 1 group will be returned
+        const [first] = ownedGroups.filter(group => group.id == params.groupId);
+
+        console.log("Active Group: ", first);
         if (this.state.isLoading){
             return <LoadingSpinner/>
         }
@@ -48,7 +53,11 @@ export class Group extends Component {
         } else {
             return (
                 <div className='group-container'>
-                    <h3>Welcome to the Group Home page!</h3>
+                    <Row>
+                        <Col s={10} offset='s1'>
+                            <h3 className='header truncate'>{first.name && first.name.toUpperCase()}</h3>
+                        </Col>
+                    </Row>
                 </div>
             )
         }
@@ -59,7 +68,8 @@ function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
         isAuthenticated: state.isAuthenticated,
-        unauthorized: state.unauthorized
+        unauthorized: state.unauthorized,
+        ownedGroups: state.ownedGroups
     }
 }
 
@@ -72,6 +82,7 @@ function mapDispatchToProps(dispatch){
 
 Group.propTypes = {
     currentUser: PropTypes.object,
+    ownedGroups: PropTypes.array,
     isAuthenticated: PropTypes.bool,
     unauthorized: PropTypes.bool,
     loginUnauthorized: PropTypes.bool

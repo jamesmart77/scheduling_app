@@ -161,6 +161,9 @@ nav {
   list-style-type: disc;
   margin: .5rem 3rem; }
 
+.group-container .header, .group-container .sub-header {
+  margin: 3rem 0 2rem 0; }
+
 .group-creation-container .add-invite-btn {
   background-color: #64908A;
   margin: 1.25rem .5rem 0 0; }
