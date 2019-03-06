@@ -13,9 +13,8 @@ export class Nav extends Component {
     }
 
     async handleLogout(){
-        await this.props.userActions.logoutCurrentUser();
-        //TODO refactor with history.push
         window.location.replace('/');
+        this.props.userActions.logoutCurrentUser();
     }
 
     render() {
@@ -47,7 +46,10 @@ export class Nav extends Component {
                                         <Link to='/groups/create'>Create Group</Link>
                                     </li>
                                     <NavItem divider />
-                                    <NavItem onClick={this.handleLogout}><Icon>exit_to_app</Icon></NavItem>
+                                    <li onClick={this.handleLogout}>
+                                        <Icon left>exit_to_app</Icon>
+                                        <span className='logout-text'>Logout</span>
+                                    </li>
                                 </div>
                             </Dropdown>
                             <div className='nav-options-med-to-small'>
@@ -58,7 +60,7 @@ export class Nav extends Component {
                                         <Link to='/groups/create'>Create Group</Link>
                                     </li>
                                     <NavItem divider />
-                                    <NavItem onClick={this.handleLogout}>Logout<Icon right>exit_to_app</Icon></NavItem>
+                                    <NavItem className='logout-text' onClick={this.handleLogout}>Logout<Icon right>exit_to_app</Icon></NavItem>
                                 </div>
                         </div>
                     )}

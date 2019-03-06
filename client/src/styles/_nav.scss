@@ -23,8 +23,26 @@ nav {
                 transition-duration: 0.5s;
                 
                 i {
-                    color: $primaryTeal;
                     font-size: 2rem;
+                }
+            }
+        }
+        &.active{
+            left: 1275px !important;
+            width: 150px !important;
+            
+            li {
+                text-align: center;
+                
+                i {
+                    color: $primarySalmon;
+                    height: 48px;
+                    line-height: 48px;
+                    margin: 0 0 0 2rem;
+                }
+
+                .logout-text{
+                    color: $primarySalmon;
                 }
             }
         }
@@ -49,6 +67,16 @@ nav {
         }
         .nav-options-med-to-small {
             display: block;
+
+            .logout-text {
+                a {
+                    color: $primarySalmon;
+                }
+                
+                i {
+                    color: $primarySalmon;
+                }
+            }
         }
     }
 }

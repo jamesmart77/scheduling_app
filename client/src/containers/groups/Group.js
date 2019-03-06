@@ -5,32 +5,50 @@ import { bindActionCreators } from 'redux';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
 import Unauthorized from '../../components/Unauthorized';
+import Unauthenticated from '../../components/Unauthenticated';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { Link } from 'react-router-dom';
 
-export class Home extends Component {
+export class Group extends Component {
     constructor(props) {
         super(props);
+        this.handleReset = this.handleReset.bind(this);
         this.state = {
             isLoading: true
         }
     }
 
     componentWillMount(){
-        this.props.userActions.userValidation();
+        this.userValidation();
+    }
+
+    async userValidation() {
+        const { match: { params } } = this.props;
+        await this.props.userActions.userAuthentication();
+        await this.props.userActions.userAuthorization(params.groupId);
         this.setState({ isLoading: false })
     }
 
+    handleReset() {
+        this.props.responseHandlerActions.reset();
+        this.props.history.push('/users');
+    }
+
     render() {
-        const { isAuthenticated, loginUnauthorized } = this.props;
+        const { isAuthenticated, unauthorized } = this.props;
+        // console.log("PROPS: ", this.props);
         if (this.state.isLoading){
             return <LoadingSpinner/>
         }
         if(!isAuthenticated) {
-            return <Unauthorized/>
+            return <Unauthenticated/>
+        } 
+        if(unauthorized) {
+            return <Unauthorized handleReset={this.handleReset}/>
         } else {
             return (
-                <div className='user-container'>
-                    <h3>Welcome to the User Home page!</h3>
+                <div className='group-container'>
+                    <h3>Welcome to the Group Home page!</h3>
                 </div>
             )
         }
@@ -40,7 +58,8 @@ export class Home extends Component {
 function mapStateToProps(state) {
     return {
         currentUser: state.currentUser,
-        isAuthenticated: state.isAuthenticated
+        isAuthenticated: state.isAuthenticated,
+        unauthorized: state.unauthorized
     }
 }
 
@@ -51,10 +70,11 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-Home.propTypes = {
+Group.propTypes = {
     currentUser: PropTypes.object,
     isAuthenticated: PropTypes.bool,
+    unauthorized: PropTypes.bool,
     loginUnauthorized: PropTypes.bool
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Group);

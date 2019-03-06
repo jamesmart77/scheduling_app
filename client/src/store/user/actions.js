@@ -60,14 +60,26 @@ export function logoutCurrentUser() {
     }
 }
 
-export function userValidation() {
+export function userAuthentication() {
     return async(dispatch) => {
         try {
-            await api.userValidation();
+            await api.userAuthentication();
             dispatch({ type: responseHandlerActionTypes.USER_VALIDATION});
         } catch (error) {
-            console.error("User validation: ", error);
-            dispatch({ type: responseHandlerActionTypes.RESET});
+            console.error("User authentication: ", error);
+            dispatch(responseHandlerActions.errorHandler(error));
+        }
+    }
+}
+
+export function userAuthorization(groupId) {
+    return async(dispatch) => {
+        try {
+            await api.userAuthorization(groupId);
+            dispatch({ type: responseHandlerActionTypes.USER_VALIDATION});
+        } catch (error) {
+            console.error("User authorization: ", error);
+            dispatch(responseHandlerActions.errorHandler(error));
         }
     }
 }

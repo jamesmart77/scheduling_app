@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { currentUser, initialLoad } from './user/reducer';
 import { ownedGroups } from './group/reducer';
-import { loginUnauthorized, isAuthenticated, isEmailAvailable, isServerError } from './responseHandler/reducer';
+import { loginUnauthorized, isAuthenticated, isEmailAvailable, isServerError, unauthorized } from './responseHandler/reducer';
 //import other reducers here
 
 const rootReducer = combineReducers({
@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
     isAuthenticated,
     isEmailAvailable,
     isServerError,
+    unauthorized,
     ownedGroups
 });
 

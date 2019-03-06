@@ -53,9 +53,14 @@ export const emailAddressValidation = async(address) => {
     return responseHandler(response, 'emailAddressValidation');
 };
 
-export const userValidation = async() => {
-    const response = await fetch('/api/users/validation', GET_Config);
-    return responseHandler(response, 'userValidation');
+export const userAuthentication = async() => {
+    const response = await fetch('/api/users/authenticate', GET_Config);
+    return responseHandler(response, 'userAuthentication');
+};
+
+export const userAuthorization = async(groupId) => {
+    const response = await fetch(`/api/users/authorization/groups/${groupId}`, GET_Config);
+    return responseHandler(response, 'userAuthorization');
 };
 
 //GROUP

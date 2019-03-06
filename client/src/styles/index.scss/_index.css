@@ -77,8 +77,19 @@ nav {
       -webkit-box-shadow: none;
       transition-duration: 0.5s; }
       nav .nav-options-large-btn:hover i {
-        color: #64908A;
         font-size: 2rem; }
+  nav .nav-options-large.active {
+    left: 1275px !important;
+    width: 150px !important; }
+    nav .nav-options-large.active li {
+      text-align: center; }
+      nav .nav-options-large.active li i {
+        color: #CC2A41;
+        height: 48px;
+        line-height: 48px;
+        margin: 0 0 0 2rem; }
+      nav .nav-options-large.active li .logout-text {
+        color: #CC2A41; }
   nav .nav-options-med-to-small {
     display: none; }
 
@@ -91,7 +102,11 @@ nav {
       .side-nav .nav-options-large-btn {
         display: none; }
     .side-nav .nav-options-med-to-small {
-      display: block; } }
+      display: block; }
+      .side-nav .nav-options-med-to-small .logout-text a {
+        color: #CC2A41; }
+      .side-nav .nav-options-med-to-small .logout-text i {
+        color: #CC2A41; } }
 
 .user-container .header, .user-container .sub-header {
   margin: 3rem 0 2rem 0; }

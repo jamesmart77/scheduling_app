@@ -7,6 +7,7 @@ import * as responseHandlerActions from '../../store/responseHandler/actions';
 import Unauthorized from '../../components/Unauthorized';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { Container, Row, Col, Card } from 'react-materialize';
+import { Link } from 'react-router-dom';
 
 export class User extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export class User extends Component {
     }
 
     async userValidation() {
-        await this.props.userActions.userValidation();
+        await this.props.userActions.userAuthentication();
         this.setState({ isLoading: false })
     }
 
@@ -55,7 +56,7 @@ export class User extends Component {
                                         <Card key={"group-" & group.id}
                                                 className='group-card' 
                                                 title={group.name} 
-                                                actions={[<a href='#'>View</a>]}>
+                                                actions={[<Link to={`/groups/${group.id}`}>View</Link>]}>
                                         </Card>
                                     </Col>
                                 )
