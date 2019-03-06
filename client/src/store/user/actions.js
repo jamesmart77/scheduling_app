@@ -27,6 +27,19 @@ export function loadUser() {
     }
 }
 
+export function loadAllUsers() {
+    return async(dispatch) => {
+        try {
+            const allUsers = await api.loadAllUsers();
+            dispatch({ type: userActionTypes.ALL_USERS, allUsers});
+            
+        } catch (error) {
+            console.error("Loading error: ", error);
+            dispatch(responseHandlerActions.errorHandler(error));
+        }
+    }
+}
+
 export function loginCurrentUser(email, password) {
     return async(dispatch) => {
         try {

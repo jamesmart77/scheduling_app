@@ -27,3 +27,12 @@ export function initialLoad(state = initialState.initialLoad, action = {}) {
             return state;
     }
 }
+
+export function allUsers(state = initialState.allUsers, action = {}) {
+    switch (action.type) {
+        case types.ALL_USERS:
+            return action.allUsers;
+        default:
+            return state;
+    }
+}

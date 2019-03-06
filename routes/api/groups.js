@@ -8,4 +8,7 @@ router.get('/', (req, res) => res.status(200).send({
 
 router.post('/', groupsController.create);
 
+router.post('/:groupId/newUser', groupsController.addUsers);
+
+
 module.exports = router;

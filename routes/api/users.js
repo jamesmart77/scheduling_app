@@ -47,6 +47,8 @@ router.get('/logout', (req, res) => {
 
 router.get('/loadData', usersController.loadData);
 
+router.get('/loadAllUsers', usersController.loadAllUsers);
+
 router.post('/login', usersController.userLogin);
 
 router.post('/available', usersController.isEmailAvailable);
