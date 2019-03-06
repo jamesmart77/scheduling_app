@@ -1,4 +1,4 @@
-# [Scheduling Assistant](https://befree-scheduler.herokuapp.com/)
+# [Sched-Aroo](http://sched-aroo.herokuapp.com/)
 
 ## Description
 To help solve the annoyance of needing to create a schedule manually every few months, why not build an app??
