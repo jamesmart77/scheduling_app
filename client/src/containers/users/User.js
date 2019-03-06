@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from '../../store/user/actions';
 import * as responseHandlerActions from '../../store/responseHandler/actions';
-import Unauthorized from '../../components/Unauthorized';
+import Unauthenticated from '../../components/Unauthenticated';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { Container, Row, Col, Card } from 'react-materialize';
+import { Container, Row, Col, Card, Button } from 'react-materialize';
 import { Link } from 'react-router-dom';
 
 export class User extends Component {
@@ -32,7 +32,7 @@ export class User extends Component {
             return <LoadingSpinner/>
         }
         if(!isAuthenticated) {
-            return <Unauthorized/>
+            return <Unauthenticated/>
         } else {
             return (
                 <Container className='user-container'>
@@ -61,6 +61,19 @@ export class User extends Component {
                                     </Col>
                                 )
                             })}
+
+                            {ownedGroups && 
+                            ownedGroups.length > 0 &&
+                            ownedGroups[0].id === 0 && 
+                                <Row>
+                                    <Col m={5} s={10} offset='s1'>
+                                        <Button className='primary-button'
+                                                onClick={() => this.props.history.push('/groups/create')}>
+                                                Create New Group
+                                        </Button>
+                                    </Col>  
+                                </Row>
+                            }
                         </Row>
                     </Row>
                 </Container>
