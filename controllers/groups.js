@@ -35,12 +35,11 @@ module.exports = {
                 where: { email: req.body.email}
             })
 
-            console.log("NEW MEMBER: ", newMember)
-            
             let group = await Group.findById(req.params.groupId);
             
+            console.log("NEW MEMBER: ", newMember)
             console.log("GROUP: ", group)
-            await group.addUser(newMember);
+            await group.addGroupMember(newMember);
             
             res.status(201).send('OK');
         } else {

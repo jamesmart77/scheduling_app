@@ -164,6 +164,9 @@ nav {
 .group-container .header, .group-container .sub-header {
   margin: 3rem 0 2rem 0; }
 
+.group-container .add-member-container {
+  margin-top: 10rem; }
+
 .group-creation-container .add-invite-btn {
   background-color: #64908A;
   margin: 1.25rem .5rem 0 0; }

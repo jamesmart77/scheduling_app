@@ -45,6 +45,11 @@ module.exports = {
                     as: 'ownedGroups',
                     attributes: ['id', 'name'],
                     where: {ownerId: userId},
+                    include: [{
+                        model: User,
+                        as: 'groupMembers',
+                        attributes: ['id', 'firstName', 'lastName', 'email']
+                    }]
                 }],
                 order: [
                     [{model: Group, as: 'ownedGroups'}, 'name', 'ASC'],
@@ -53,6 +58,8 @@ module.exports = {
                     exclude: ['password']
                 }
             });
+
+            console.log("USER GROUPS: ", userGroup);
 
             if(!userGroup){
                 userGroup = await User.findOne({

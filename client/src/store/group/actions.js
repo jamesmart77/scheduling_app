@@ -24,7 +24,7 @@ export function addUserToGroup(userEmail, groupId) {
         try {
             const ownedGroups = await api.addUserToGroup(userEmail, groupId);
             console.log("New Owned Groups: ", ownedGroups);
-            // dispatch({ type: groupActionTypes.ALL_USERS, ownedGroups});
+            dispatch({ type: groupActionTypes.GROUPS, ownedGroups});
         } catch (error) {
             console.error("Add user to group error: ", error);
             dispatch(responseHandlerActions.errorHandler(error));
