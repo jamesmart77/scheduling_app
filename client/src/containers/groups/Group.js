@@ -117,7 +117,7 @@ export class Group extends Component {
         } else {
             try {
                 await this.props.groupActions.addUserToGroup({email: this.state.email}, this.props.match.params.groupId);
-                window.Materialize.toast('Member Added Successfully', 1500, 'rounded');
+                window.Materialize.toast('Member Added Successfully', 2500, 'rounded');
                 this.setState({ email: ''})
             } catch (error) {
                 console.error("Error adding new user...", error);
