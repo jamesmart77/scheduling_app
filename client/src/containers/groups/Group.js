@@ -21,12 +21,38 @@ export class Group extends Component {
         this.state = {
             isLoading: true,
             email: '',
-            showModal: false
+            showModal: false,
+            group: {},
+            availableUsers: []
         }
     }
 
     componentWillMount(){
         this.initialSequence();
+    }
+
+    componentDidUpdate(prevProps) {
+        
+        if((prevProps.ownedGroups !== this.props.ownedGroups) || (prevProps.allUsers !== this.props.allUsers )) {
+            const { ownedGroups, allUsers, match: { params }} = this.props;
+            
+            if(ownedGroups && ownedGroups.length > 0 && allUsers && allUsers[0].id !== 0){
+                //destructuring allows access to first element of array from filter -- only 1 group will be returned
+                const [first] = ownedGroups.filter(group => group.id == params.groupId);
+                if(first && first.groupMembers){
+                    let availableUsers = [];
+                    allUsers.filter(user => {
+                        if(!first.groupMembers.some(member => user.id === member.id)){
+                            availableUsers.push(user);
+                        }
+                    });
+                    this.setState({ 
+                        availableUsers: availableUsers,
+                        group: first
+                    });
+                }
+            }
+        }
     }
 
     async initialSequence() {
@@ -53,8 +79,8 @@ export class Group extends Component {
     };
 
     async handleAddUser() {
-        const { email } = this.props;
-        const foundUser = this.props.allUsers.filter(user => user.email === email);
+        const { email, availableUsers } = this.state;
+        const foundUser = availableUsers.filter(user => user.email === email);
 
         if( email === '' || foundUser.length === 0 ) {
                 this.setState({ showModal: true });
@@ -62,6 +88,7 @@ export class Group extends Component {
             try {
                 await this.props.groupActions.addUserToGroup({email: this.state.email}, this.props.match.params.groupId);
                 window.Materialize.toast('Member Added Successfully', 1500, 'rounded');
+                this.setState({ email: ''})
             } catch (error) {
                 console.error("Error adding new user...", error);
             }
@@ -69,11 +96,9 @@ export class Group extends Component {
     }
 
     render() {
-        const { isAuthenticated, unauthorized, ownedGroups, allUsers, match: { params } } = this.props;
+        const { isAuthenticated, unauthorized } = this.props;
+        const { group, availableUsers } = this.state;
         
-        //destructuring allows us to access first element of array from filter -- only 1 group will be returned
-        const [first] = ownedGroups.filter(group => group.id == params.groupId);
-
         if (this.state.isLoading){
             return <LoadingSpinner/>
         }
@@ -94,15 +119,15 @@ export class Group extends Component {
                     />
                     <Row>
                         <Col s={10} offset='s1'>
-                            <h3 className='header truncate'>{first.name && first.name.toUpperCase()}</h3>
+                            <h3 className='header truncate'>{group.name && group.name.toUpperCase()}</h3>
                         </Col>
                     </Row>
                     <Row>
                         <Col m={8} s={10} offset='s1 m2'>
                             <h5 className='sub-header'>Group Members</h5>
-                            {first.groupMembers && first.groupMembers[0].id !== 0 ? (
+                            {group.groupMembers.length > 0 && group.groupMembers[0].id !== 0 ? (
                                 
-                                first.groupMembers.map(member => {
+                                group.groupMembers.map(member => {
                                     return (
                                         <Collapsible accordion key={'memberId-' + member.id}>
                                             <CollapsibleItem header={member.firstName + " " + member.lastName}>
@@ -115,30 +140,32 @@ export class Group extends Component {
                                 <div>There are no members for this group yet</div>
                             )}
 
-                            <div className='add-member-container'>
-                                <Col m={8} s={12} offset='m2'>
-                                    <h5 className='sub-header'>Add New Member</h5>
-                                    <Input
-                                        s={12}
-                                        type='select'  
-                                        name="email"
-                                        value={this.state.email}
-                                        onChange={this.handleChange}
-                                    >
-                                        <option value="" disabled selected>Email Address</option>
-                                        {allUsers && allUsers.map(user => {
-                                            return (
-                                                <option key={user.id} value={user.email}>
-                                                    {user.firstName} {user.lastName} ({user.email})
-                                                </option>
-                                            )
-                                        })}
-                                    </Input>
-                                </Col>
-                                <Col m={6} s={12} offset='m3'>
-                                    <Button className='primary-button' onClick={this.handleAddUser}>Add Member</Button>
-                                </Col>
-                            </div>
+                            {availableUsers.length > 0 && 
+                                <div className='add-member-container'>
+                                    <Col m={8} s={12} offset='m2'>
+                                        <h5 className='sub-header'>Add New Member</h5>
+                                        <Input
+                                            s={12}
+                                            type='select'  
+                                            name="email"
+                                            value={this.state.email}
+                                            onChange={this.handleChange}
+                                        >
+                                            <option value="" disabled selected>Email Address</option>
+                                            {availableUsers && availableUsers.map(user => {
+                                                return (
+                                                    <option key={user.id} value={user.email}>
+                                                        {user.firstName} {user.lastName} ({user.email})
+                                                    </option>
+                                                )
+                                            })}
+                                        </Input>
+                                    </Col>
+                                    <Col m={6} s={12} offset='m3'>
+                                        <Button className='primary-button' onClick={this.handleAddUser}>Add Member</Button>
+                                    </Col>
+                                </div>
+                            }
                         </Col>
                     </Row>
                 </div>

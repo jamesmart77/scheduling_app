@@ -37,11 +37,10 @@ module.exports = {
 
             let group = await Group.findById(req.params.groupId);
             
-            console.log("NEW MEMBER: ", newMember)
-            console.log("GROUP: ", group)
             await group.addGroupMember(newMember);
+            let user = await helpers.findUserInfo(group.ownerId);
             
-            res.status(201).send('OK');
+            res.status(201).send(user.ownedGroups);
         } else {
             res.status(403).send({ message: response});
         }
