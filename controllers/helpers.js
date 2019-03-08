@@ -69,6 +69,7 @@ module.exports = {
                     }
                 });
             }
+            console.log("USER GROUP: ", userGroup);
             return userGroup;
         } catch (error) {
             console.log("findUserInfo error: ", error);

@@ -31,6 +31,7 @@ export function loadAllUsers() {
     return async(dispatch) => {
         try {
             const allUsers = await api.loadAllUsers();
+            console.log("ALL USERS: ", allUsers)
             dispatch({ type: userActionTypes.ALL_USERS, allUsers});
             
         } catch (error) {
