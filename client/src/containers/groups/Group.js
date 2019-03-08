@@ -23,7 +23,7 @@ export class Group extends Component {
             isLoading: true,
             email: '',
             showModal: false,
-            group: {},
+            group: null,
             availableUsers: []
         }
     }
@@ -44,25 +44,26 @@ export class Group extends Component {
         if(prevProps && this.props){
             if((prevProps.ownedGroups !== this.props.ownedGroups) || 
                 (prevProps.allUsers !== this.props.allUsers ) ||
-                this.state.group.id === undefined) {
+                this.state.group === null) {
                 
                     const { ownedGroups, allUsers, match: { params }} = this.props;
                 
-                    if(ownedGroups && ownedGroups.length > 0 && allUsers && allUsers[0].id !== 0){
+                    if(ownedGroups && ownedGroups.length > 0) {
                         //destructuring allows access to first element of array from filter -- only 1 group will be returned
                         const [first] = ownedGroups.filter(group => group.id == params.groupId);
+                        this.setState({ group: first });
+                        
+                        if(allUsers && allUsers[0] && allUsers[0].id !== 0){
     
-                        if(first && first.groupMembers){
-                            let availableUsers = [];
-                            allUsers.filter(user => {
-                                if(!first.groupMembers.some(member => user.id === member.id)){
-                                    availableUsers.push(user);
-                                }
-                            });
-                            this.setState({ 
-                                availableUsers: availableUsers,
-                                group: first
-                            });
+                            if(first && first.groupMembers){
+                                let availableUsers = [];
+                                allUsers.filter(user => {
+                                    if(!first.groupMembers.some(member => user.id === member.id)){
+                                        availableUsers.push(user);
+                                    }
+                                });
+                                this.setState({availableUsers: availableUsers});
+                            }
                         }
                     }
             }
@@ -78,11 +79,11 @@ export class Group extends Component {
         if(allUsers[0].id === 0){
             await userActions.loadAllUsers();
         }
-        console.log("STATE: ", this.state);
-        if(group.id === undefined || availableUsers.length === 0){
+
+        if(group === null || availableUsers.length === 0){
             await this.loadGroupInfo(prevProps);
         }
-        console.log("PROPS: ", this.props)
+    
         this.setState({ isLoading: false })
     }
 
@@ -164,7 +165,7 @@ export class Group extends Component {
                     <Row>
                         <Col m={8} s={10} offset='s1 m2'>
                             <h5 className='member-header'>Group Members</h5>
-                            {group.groupMembers && 
+                            {group && group.groupMembers && 
                                 group.groupMembers.length > 0 && 
                                 group.groupMembers[0].id !== 0 ? (
                                 

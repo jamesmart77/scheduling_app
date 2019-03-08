@@ -79,7 +79,8 @@ nav {
       nav .nav-options-large-btn:hover i {
         font-size: 2rem; }
   nav .nav-options-large.active {
-    left: 1275px !important;
+    left: auto !important;
+    right: 10px !important;
     width: 150px !important; }
     nav .nav-options-large.active li {
       text-align: center; }

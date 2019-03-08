@@ -28,7 +28,8 @@ nav {
             }
         }
         &.active{
-            left: 1275px !important;
+            left: auto !important;
+            right: 10px !important;
             width: 150px !important;
             
             li {

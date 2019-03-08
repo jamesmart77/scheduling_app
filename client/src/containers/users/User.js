@@ -39,7 +39,7 @@ export class User extends Component {
                     <Row>
                         <Row>
                             <Col s={12}>
-                                <h3 className='header'>Welcome back {currentUser.firstName}!</h3>
+                                <h3 className='header'>Welcome {currentUser.firstName}!</h3>
 
                             </Col>
                         </Row>
