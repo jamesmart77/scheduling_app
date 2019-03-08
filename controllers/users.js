@@ -2,6 +2,7 @@ const User = require('../ORM/models').User;
 const bcrypt = require('bcrypt');
 const jwt = require('./jwt');
 const helpers = require('./helpers');
+const Op = require('sequelize').Op;
 
 module.exports = {
   async create(req, res) {
@@ -32,6 +33,31 @@ module.exports = {
     catch (error) {
         console.error("LOAD Data ERROR: ", error);
         res.status(401).send(error)
+    };
+  },
+
+  async loadAllUsers(req, res) {
+    try {
+        let decoded = await jwt.decode(req.cookies.schedAroo_jwt);
+        let allUsers = await User.findAll({
+            where: { 
+                email: {
+                    [Op.ne]: decoded.email 
+                }
+            },
+            attributes: {
+                exclude: ['password', 'createdAt', 'updatedAt']
+            }
+        });
+        res.status(201).send(allUsers);
+    }
+    catch (error) {
+        console.error("LOAD All Users ERROR: ", error);
+        if(error.message.includes("invalid")){
+            res.status(401).send(error)
+        } else {
+            res.status(500).send(error)
+        }
     };
   },
 

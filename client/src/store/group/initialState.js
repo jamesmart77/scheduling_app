@@ -4,8 +4,15 @@ export default Immutable({
     ownedGroups: [
         {
             id: 0,
-            name: ''
+            name: '',
+            groupMembers: [
+                {
+                    id: 0,
+                    email: '',
+                    firstName: '',
+                    lastName: ''
+                }
+            ]
         }
-    ],
-    memberGroups: []
+    ]
 })

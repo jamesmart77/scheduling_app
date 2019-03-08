@@ -5,5 +5,6 @@ export default Immutable({
     isAuthenticated: false,
     isEmailAvailable: true,
     isServerError: false,
-    unauthorized: false
+    unauthorized: false,
+    addUserToGroupError: false
 })

@@ -17,18 +17,15 @@ module.exports = {
     authorizationCheck: async (req) => {
         try {
             let token = req.cookies.schedAroo_jwt;
-            const groupId = req.params.groupId;
 
             let decoded  = await jwt.decode(token);
-            console.log("USER ID:", decoded.userId);
-            console.log("Group ID:", groupId);
             let group = await Group.findOne({
                 where: {
                     id: req.params.groupId,
                     ownerId: decoded.userId
                 }
             })
-            console.log("QUERIED GROUP: ", group);
+            
             if(!group){
                 return "Unauthorized"
             } else {
@@ -48,6 +45,11 @@ module.exports = {
                     as: 'ownedGroups',
                     attributes: ['id', 'name'],
                     where: {ownerId: userId},
+                    include: [{
+                        model: User,
+                        as: 'groupMembers',
+                        attributes: ['id', 'firstName', 'lastName', 'email']
+                    }]
                 }],
                 order: [
                     [{model: Group, as: 'ownedGroups'}, 'name', 'ASC'],

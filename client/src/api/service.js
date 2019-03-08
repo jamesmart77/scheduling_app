@@ -30,6 +30,11 @@ export const loadUser = async() => {
     return responseHandler(response, 'loadUser'); 
 };
 
+export const loadAllUsers = async() => {
+    const response = await fetch('/api/users/loadAllUsers', GET_Config);
+    return responseHandler(response, 'loadAllUsers'); 
+};
+
 export const loginCurrentUser = async(credentials) => {
     POST_Config.body = JSON.stringify(credentials);
     const response = await fetch('/api/users/login', POST_Config);
@@ -68,6 +73,12 @@ export const createGroup = async(newGroup) => {
     POST_Config.body = JSON.stringify(newGroup);
     const response = await fetch('/api/groups', POST_Config);
     return responseHandler(response, 'createGroup');
+};
+
+export const addUserToGroup = async(userEmail, groupId) => {
+    POST_Config.body = JSON.stringify(userEmail);
+    const response = await fetch(`/api/groups/${groupId}/newUser`, POST_Config);
+    return responseHandler(response, 'addUserToGroup');
 };
 
 const responseHandler = async(response, funcName) => {

@@ -7,5 +7,13 @@ export default Immutable({
         lastName: '',
         email: ''
     },
-    initialLoad: true
+    initialLoad: true,
+    allUsers: [
+        {
+            id: 0,
+            firstName: '',
+            lastName: '',
+            email:''
+        }
+    ]
 })

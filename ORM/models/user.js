@@ -64,7 +64,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'ownerId',
       as: 'ownedGroups',
     });
+    
+    User.belongsToMany(models.Group, {
+      through: models.userGroup,
+      as: 'memberOfGroup',
+      foreignKey: 'userId'
+    });
   };
+
 
   // User.associate = (models) => {
   //   User.hasMany(models.Schedule, {
