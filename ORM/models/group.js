@@ -7,15 +7,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
 
-  // many-to-many with join included
-  // Group.associate = (models) => {
-  //   Group.belongsToMany(models.User, {
-  //     through: 'users_groups',
-  //     as: 'groupUsers',
-  //     foreignKey: 'groupId'
-  //   });
-  // }; 
-
   Group.associate = (models) => {
     Group.belongsTo(models.User, {
       foreignKey: 'ownerId',
@@ -23,18 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Group.belongsToMany(models.User, {
+      //through join table
       through: models.userGroup,
       as: 'groupMembers',
       foreignKey: 'groupId'
     });
-  };
 
-  // Group.associate = (models) => {
-  //   Group.hasMany(models.Service, {
-  //     foreignKey: 'groupId',
-  //     as: 'groupServices',
-  //   }); 
-  // };
+    Group.hasMany(models.Service, {
+      foreignKey: 'groupId',
+      as: 'groupServices'
+    });
+  };
 
   // Group.associate = (models) => {
   //   Group.hasMany(models.Invite, {

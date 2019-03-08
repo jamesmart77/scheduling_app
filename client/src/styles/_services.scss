@@ -1,0 +1,42 @@
+@import './appColors';
+
+.services-container {
+    .header{
+        margin: 3rem 0 2rem 0;
+    }  
+
+    .header-icon {
+        i{
+            cursor: pointer;
+            line-height: 8rem;
+            font-size: 2.4rem;
+        }
+
+        .expand-open {
+            -ms-transform: rotate(180deg); /* IE 9 */
+            -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+            transform: rotate(180deg);
+            -webkit-transition-duration: .5s;
+            /* Safari 4.0 - 8.0 */
+            transition-duration: .5s;
+            color: $primarySalmon;
+        }
+
+        .expand-close {
+            -webkit-transition-duration: .5s;
+            /* Safari 4.0 - 8.0 */
+            transition-duration: .5s;
+        }
+    }
+
+    .add-btn {
+        margin-top: 1rem;
+    }
+}
+
+
+@media only screen and (max-width: 600px) {
+    .services-container {
+    
+    }
+}
