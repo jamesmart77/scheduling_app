@@ -11,7 +11,7 @@ export class Unauthorized extends Component {
                 <Row>
                     <h3 className='center'>Unauthorized</h3>
                     <p className='center'>
-                        You do not have access to this content...
+                        You do not have access to this view or modify this content...
                     </p>
                         <Button className='primary-button' onClick={handleReset}>My Account</Button>
                 </Row>

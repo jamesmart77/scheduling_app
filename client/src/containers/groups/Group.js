@@ -17,6 +17,7 @@ export class Group extends Component {
         super(props);
         this.handleReset = this.handleReset.bind(this);
         this.handleAddUser = this.handleAddUser.bind(this);
+        this.handleSubmitBug = this.handleSubmitBug.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             isLoading: true,
@@ -27,47 +28,75 @@ export class Group extends Component {
         }
     }
 
-    componentWillMount(){
-        this.initialSequence();
+    componentWillMount(prevProps){
+        this.initialSequence(prevProps);
     }
 
     componentDidUpdate(prevProps) {
-        
-        if((prevProps.ownedGroups !== this.props.ownedGroups) || (prevProps.allUsers !== this.props.allUsers )) {
-            const { ownedGroups, allUsers, match: { params }} = this.props;
-            
-            if(ownedGroups && ownedGroups.length > 0 && allUsers && allUsers[0].id !== 0){
-                //destructuring allows access to first element of array from filter -- only 1 group will be returned
-                const [first] = ownedGroups.filter(group => group.id == params.groupId);
-                if(first && first.groupMembers){
-                    let availableUsers = [];
-                    allUsers.filter(user => {
-                        if(!first.groupMembers.some(member => user.id === member.id)){
-                            availableUsers.push(user);
+        this.loadGroupInfo(prevProps);
+    }
+    
+    componentDidMount(prevProps) {
+        this.loadGroupInfo(prevProps);
+    }
+
+    loadGroupInfo(prevProps) {
+        if(prevProps && this.props){
+            if((prevProps.ownedGroups !== this.props.ownedGroups) || 
+                (prevProps.allUsers !== this.props.allUsers ) ||
+                this.state.group.id === undefined) {
+                
+                    const { ownedGroups, allUsers, match: { params }} = this.props;
+                
+                    if(ownedGroups && ownedGroups.length > 0 && allUsers && allUsers[0].id !== 0){
+                        //destructuring allows access to first element of array from filter -- only 1 group will be returned
+                        const [first] = ownedGroups.filter(group => group.id == params.groupId);
+    
+                        if(first && first.groupMembers){
+                            let availableUsers = [];
+                            allUsers.filter(user => {
+                                if(!first.groupMembers.some(member => user.id === member.id)){
+                                    availableUsers.push(user);
+                                }
+                            });
+                            this.setState({ 
+                                availableUsers: availableUsers,
+                                group: first
+                            });
                         }
-                    });
-                    this.setState({ 
-                        availableUsers: availableUsers,
-                        group: first
-                    });
-                }
+                    }
             }
         }
     }
 
-    async initialSequence() {
-        const { match: { params } } = this.props;
-        await this.props.userActions.userAuthentication();
-        await this.props.userActions.userAuthorization(params.groupId);
-        if(this.props.allUsers[0].id === 0){
-            await this.props.userActions.loadAllUsers();
+    async initialSequence(prevProps) {
+        const { userActions, allUsers, match: { params } } = this.props;
+        const { group, availableUsers } = this.state;
+
+        await userActions.userAuthentication();
+        await userActions.userAuthorization(params.groupId);
+        if(allUsers[0].id === 0){
+            await userActions.loadAllUsers();
         }
+        console.log("STATE: ", this.state);
+        if(group.id === undefined || availableUsers.length === 0){
+            await this.loadGroupInfo(prevProps);
+        }
+        console.log("PROPS: ", this.props)
         this.setState({ isLoading: false })
     }
 
-    handleReset() {
+    handleReset(shouldRedirect) {
         this.props.responseHandlerActions.reset();
-        this.props.history.push('/users');
+        if(shouldRedirect){
+            this.props.history.push('/users');
+        }
+    }
+
+    handleSubmitBug(){
+        let win = window.open("https://github.com/jamesmart77/scheduling_app/issues", "_blank")
+        win.focus();
+        this.handleReset(true);
     }
 
     handleChange(event) {
@@ -96,7 +125,7 @@ export class Group extends Component {
     }
 
     render() {
-        const { isAuthenticated, unauthorized } = this.props;
+        const { isAuthenticated, unauthorized, addUserToGroupErrpr } = this.props;
         const { group, availableUsers } = this.state;
         
         if (this.state.isLoading){
@@ -106,16 +135,26 @@ export class Group extends Component {
             return <Unauthenticated/>
         } 
         if(unauthorized) {
-            return <Unauthorized handleReset={this.handleReset}/>
+            return <Unauthorized handleReset={() => this.handleReset(true)}/>
         } else {
             return (
                 <div className='group-container'>
                     <SweetAlert
                         show={this.state.showModal}
-                        type='error'
+                        type='warning'
                         title='Whoops!'
                         text='Please ensure a valid email is provided and is associated to an active user. Only emails for active users are allowed.'
                         onConfirm={() => this.setState({ showModal: false })}
+                    />
+                    <SweetAlert
+                        show={addUserToGroupErrpr}
+                        type='error'
+                        title='Error Adding Member'
+                        text='An error occurred when trying to add the new member. Please try logging back in and if the problem persists submit a bug. Sorry for the inconvenience'
+                        onConfirm={() => this.handleReset(false)}
+                        showCancelButton={true}
+                        cancelButtonText='Submit Bug'
+                        onCancel={this.handleSubmitBug}
                     />
                     <Row>
                         <Col s={10} offset='s1'>
@@ -125,7 +164,9 @@ export class Group extends Component {
                     <Row>
                         <Col m={8} s={10} offset='s1 m2'>
                             <h5 className='member-header'>Group Members</h5>
-                            {group.groupMembers.length > 0 && group.groupMembers[0].id !== 0 ? (
+                            {group.groupMembers && 
+                                group.groupMembers.length > 0 && 
+                                group.groupMembers[0].id !== 0 ? (
                                 
                                 group.groupMembers.map(member => {
                                     return (
@@ -184,6 +225,7 @@ function mapStateToProps(state) {
         unauthorized: state.unauthorized,
         ownedGroups: state.ownedGroups,
         allUsers: state.allUsers,
+        addUserToGroupErrpr: state.addUserToGroupErrpr
     }
 }
 
@@ -200,6 +242,7 @@ Group.propTypes = {
     ownedGroups: PropTypes.array,
     allUsers: PropTypes.array,
     isAuthenticated: PropTypes.bool,
+    addUserToGroupErrpr: PropTypes.bool,
     unauthorized: PropTypes.bool,
     loginUnauthorized: PropTypes.bool
 };

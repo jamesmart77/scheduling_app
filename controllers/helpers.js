@@ -59,8 +59,6 @@ module.exports = {
                 }
             });
 
-            console.log("USER GROUPS: ", userGroup);
-
             if(!userGroup){
                 userGroup = await User.findOne({
                     where: {

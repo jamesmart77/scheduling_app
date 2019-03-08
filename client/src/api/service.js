@@ -78,7 +78,7 @@ export const createGroup = async(newGroup) => {
 export const addUserToGroup = async(userEmail, groupId) => {
     POST_Config.body = JSON.stringify(userEmail);
     const response = await fetch(`/api/groups/${groupId}/newUser`, POST_Config);
-    return responseHandler(response, 'createGroup');
+    return responseHandler(response, 'addUserToGroup');
 };
 
 const responseHandler = async(response, funcName) => {

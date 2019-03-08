@@ -28,6 +28,7 @@ export function addUserToGroup(userEmail, groupId) {
         } catch (error) {
             console.error("Add user to group error: ", error);
             dispatch(responseHandlerActions.errorHandler(error));
+            throw new Error(error);
         }
     }
 }
