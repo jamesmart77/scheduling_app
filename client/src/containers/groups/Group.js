@@ -124,7 +124,7 @@ export class Group extends Component {
                     </Row>
                     <Row>
                         <Col m={8} s={10} offset='s1 m2'>
-                            <h5 className='sub-header'>Group Members</h5>
+                            <h5 className='member-header'>Group Members</h5>
                             {group.groupMembers.length > 0 && group.groupMembers[0].id !== 0 ? (
                                 
                                 group.groupMembers.map(member => {
@@ -140,32 +140,35 @@ export class Group extends Component {
                                 <div>There are no members for this group yet</div>
                             )}
 
-                            {availableUsers.length > 0 && 
-                                <div className='add-member-container'>
-                                    <Col m={8} s={12} offset='m2'>
-                                        <h5 className='sub-header'>Add New Member</h5>
-                                        <Input
-                                            s={12}
-                                            type='select'  
-                                            name="email"
-                                            value={this.state.email}
-                                            onChange={this.handleChange}
-                                        >
-                                            <option value="" disabled selected>Email Address</option>
-                                            {availableUsers && availableUsers.map(user => {
-                                                return (
-                                                    <option key={user.id} value={user.email}>
-                                                        {user.firstName} {user.lastName} ({user.email})
-                                                    </option>
-                                                )
-                                            })}
-                                        </Input>
-                                    </Col>
-                                    <Col m={6} s={12} offset='m3'>
-                                        <Button className='primary-button' onClick={this.handleAddUser}>Add Member</Button>
-                                    </Col>
-                                </div>
-                            }
+                            <Col l={8} s={12} offset='l2'>
+                                <h5 className='add-new-header'>Add New Member</h5>
+                                {availableUsers.length > 0 ? ( 
+                                    <div className='add-member-container'>
+                                            <Input
+                                                s={12}
+                                                type='select'  
+                                                name="email"
+                                                value={this.state.email}
+                                                onChange={this.handleChange}
+                                            >
+                                                <option value="" disabled selected>Email Address</option>
+                                                {availableUsers && availableUsers.map(user => {
+                                                    return (
+                                                        <option key={user.id} value={user.email}>
+                                                            {user.firstName} {user.lastName} ({user.email})
+                                                        </option>
+                                                    )
+                                                })}
+                                            </Input>
+                                        <Col l={8} m={10} s={12} offset='m1 l2'>
+                                            <Button className='primary-button' onClick={this.handleAddUser}>Add Member</Button>
+                                        </Col>
+                                    </div>
+                                ) : (
+                                    <div>All available users have been added to this group...</div>
+                                    )
+                                }
+                            </Col>
                         </Col>
                     </Row>
                 </div>

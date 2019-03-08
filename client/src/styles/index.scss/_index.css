@@ -161,8 +161,11 @@ nav {
   list-style-type: disc;
   margin: .5rem 3rem; }
 
-.group-container .header, .group-container .sub-header {
+.group-container .member-header {
   margin: 3rem 0 2rem 0; }
+
+.group-container .add-new-header {
+  margin: 10rem 0 2rem 0; }
 
 .group-container .add-member-container {
   margin-top: 10rem; }

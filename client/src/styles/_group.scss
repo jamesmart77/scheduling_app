@@ -1,9 +1,13 @@
 @import './appColors';
 
 .group-container {
-    .header, .sub-header{
+    .member-header{
         margin: 3rem 0 2rem 0;
     }  
+
+    .add-new-header {
+        margin: 10rem 0 2rem 0;
+    }
 
     .add-member-container {
         margin-top: 10rem;
