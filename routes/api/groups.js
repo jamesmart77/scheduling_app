@@ -10,5 +10,7 @@ router.post('/', groupsController.create);
 
 router.post('/:groupId/newUser', groupsController.addUsers);
 
+router.post('/:groupId/newService', groupsController.addService);
+
 
 module.exports = router;

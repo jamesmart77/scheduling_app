@@ -12,6 +12,12 @@ export default Immutable({
                     firstName: '',
                     lastName: ''
                 }
+            ],
+            groupServices: [
+                {
+                    id: 0,
+                    title: ''
+                }
             ]
         }
     ]

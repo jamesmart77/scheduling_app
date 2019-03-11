@@ -81,6 +81,14 @@ export const addUserToGroup = async(userEmail, groupId) => {
     return responseHandler(response, 'addUserToGroup');
 };
 
+//SERVICE
+export const createService = async(newService, groupId) => {
+    POST_Config.body = JSON.stringify(newService);
+    const response = await fetch(`/api/groups/${groupId}/newService`, POST_Config);
+    return responseHandler(response, 'createService');
+};
+
+
 const responseHandler = async(response, funcName) => {
     if(!response.ok) {
         throw new Error(`API Service ${funcName} failed, HTTP status ${response.status}`);

@@ -10,8 +10,7 @@ import Unauthenticated from '../../components/Unauthenticated';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import Services from '../Services';
 import SweetAlert from 'sweetalert2-react';
-import { Row, Col, Input, Button, Collapsible, CollapsibleItem, Icon } from 'react-materialize';
-import { Fade } from 'react-reveal';
+import { Row, Col, Input, Button, Collapsible, CollapsibleItem } from 'react-materialize';
 
 export class Group extends Component {
     constructor(props) {
@@ -20,14 +19,12 @@ export class Group extends Component {
         this.handleAddUser = this.handleAddUser.bind(this);
         this.handleSubmitBug = this.handleSubmitBug.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleExpand = this.handleExpand.bind(this);
         this.state = {
             isLoading: true,
             email: '',
             showModal: false,
             group: null,
-            availableUsers: [],
-            expandSection: false
+            availableUsers: []
         }
     }
 
@@ -103,10 +100,6 @@ export class Group extends Component {
         this.handleReset(true);
     }
 
-    handleExpand(){
-        this.setState({expandSection: !this.state.expandSection});
-    }
-
     handleChange(event) {
         const { name, value } = event.target;
 
@@ -133,8 +126,8 @@ export class Group extends Component {
     }
 
     render() {
-        const { isAuthenticated, unauthorized, addUserToGroupErrpr } = this.props;
-        const { group, availableUsers, expandSection } = this.state;
+        const { isAuthenticated, unauthorized, addUserToGroupErrpr, match : {params} } = this.props;
+        const { group, availableUsers } = this.state;
         
         if (this.state.isLoading){
             return <LoadingSpinner/>
@@ -166,83 +159,63 @@ export class Group extends Component {
                     />
                     <Row>
                         <Col s={10} offset='s1'>
-                            <h3 className='header truncate'>{group.name && group.name.toUpperCase()}</h3>
+                            <h3 className='header truncate'>{group && group.name && group.name.toUpperCase()}</h3>
                         </Col>
                     </Row>
                     <Row>
                         <Col m={8} s={10} offset='s1 m2'>
-                            <Row className='member-row'>
-                                <h5 className='member-header'>Group Members</h5>
-
-                                {group && group.groupMembers && 
-                                    group.groupMembers.length > 0 && 
-                                    group.groupMembers[0].id !== 0 ? (
-                                    
-                                    group.groupMembers.map(member => {
-                                        return (
-                                            <Collapsible accordion key={'memberId-' + member.id}>
-                                                <CollapsibleItem header={member.firstName + " " + member.lastName}>
-                                                    Tada!!!
-                                                </CollapsibleItem>
-                                            </Collapsible>
-                                        )
-                                    })
-                                ) : (
-                                    <div>There are no members for this group yet</div>
-                                )}
-                            </Row>
-
-                            <Row className='add-new'>
-                                <Row>
-                                    <Col s={10}>
-                                        <h5 className='add-new-header'>Add New Member</h5>
-                                    </Col>
-                                    {availableUsers.length > 0 &&
-                                        <Col s={2}>
-                                            <div className='header-icon' onClick={this.handleExpand}>
-                                                <Icon className={expandSection ? "expand-open" : "expand-close"} right>expand_more</Icon>
-                                            </div>
-                                        </Col>
-                                    }
-                                </Row>
-                                {availableUsers.length > 0 ? ( 
-                                    <Row>
-                                        <Fade duration={750} left opposite when={expandSection}>
-                                            <div className='add-member-container'>
-                                                    <Input
-                                                        s={12}
-                                                        type='select'  
-                                                        name="email"
-                                                        value={this.state.email}
-                                                        onChange={this.handleChange}
-                                                    >
-                                                        <option value="" disabled selected>Email Address</option>
-                                                        {availableUsers && availableUsers.map(user => {
-                                                            return (
-                                                                <option key={user.id} value={user.email}>
-                                                                    {user.firstName} {user.lastName} ({user.email})
-                                                                </option>
-                                                            )
-                                                        })}
-                                                    </Input>
-                                                <Col l={8} m={10} s={12} offset='m1 l2'>
-                                                    <Button className='primary-button' onClick={this.handleAddUser}>Add Member</Button>
-                                                </Col>
-                                            </div>
-                                        </Fade>
-                                    </Row>
-                                ) : (
-                                    <Row>
-                                        <Col s={10} offset='s1'>
-                                            <div>All available users have been added to this group...</div>
-                                        </Col>
-                                    </Row>
+                            <h5 className='member-header'>Group Members</h5>
+                            {group && group.groupMembers && 
+                                group.groupMembers.length > 0 && 
+                                group.groupMembers[0].id !== 0 ? (
+                                
+                                group.groupMembers.map(member => {
+                                    return (
+                                        <Collapsible accordion key={'memberId-' + member.id}>
+                                            <CollapsibleItem header={member.firstName + " " + member.lastName}>
+                                                Tada!!!
+                                            </CollapsibleItem>
+                                        </Collapsible>
                                     )
-                                }
+                                })
+                            ) : (
+                                <div>There are no members for this group yet</div>
+                            )}
+
+                            <Row>
+                                <Col l={8} s={12} offset='l2'>
+                                    <h5 className='add-new-header'>Add New Member</h5>
+                                    {availableUsers.length > 0 ? ( 
+                                        <div className='add-member-container'>
+                                                <Input
+                                                    s={12}
+                                                    type='select'  
+                                                    name="email"
+                                                    value={this.state.email}
+                                                    onChange={this.handleChange}
+                                                >
+                                                    <option value="" disabled selected>Email Address</option>
+                                                    {availableUsers && availableUsers.map(user => {
+                                                        return (
+                                                            <option key={user.id} value={user.email}>
+                                                                {user.firstName} {user.lastName} ({user.email})
+                                                            </option>
+                                                        )
+                                                    })}
+                                                </Input>
+                                            <Col l={8} m={10} s={12} offset='m1 l2'>
+                                                <Button className='primary-button' onClick={this.handleAddUser}>Add Member</Button>
+                                            </Col>
+                                        </div>
+                                    ) : (
+                                            <div>All available users have been added to this group...</div>
+                                        )
+                                    }
+                                </Col>
                             </Row>
+                            <Services groupId={params.groupId} />
                         </Col>
                     </Row>
-                    <Services />
                 </div>
             )
         }
