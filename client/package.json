@@ -6,7 +6,7 @@
   "dependencies": {
     "cookie-getter": "^2.0.0",
     "email-validator": "^2.0.4",
-    "merge": "^1.2.1",
+    "merge": "^2.1.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
